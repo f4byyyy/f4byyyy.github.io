@@ -10,7 +10,7 @@
 	<body>
 		UNDER CONSTRUCTION
 		<?php
-	print("test");
+	echo "test";
 ?>
 	</body>
 </html>
