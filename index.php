@@ -5,7 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="shortcut icon" type="image/x-icon" href="#">
 		<link rel="stylesheet" type="text/css" href="#">
-		<title>#</title>
+		<title>F-Net</title>
 	</head>
 	<body>
 		UNDER CONSTRUCTION
