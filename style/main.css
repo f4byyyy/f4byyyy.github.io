@@ -130,6 +130,9 @@ body {
 }
 
 #main_background_image {
+	min-width: fit-content;
+	width: calc(100% + 30px);
+	height: auto;
 	animation: backgroundFadeIn 0.2s ease-in-out forwards;
 	margin-left: -30px;
 	user-select: none;
