@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Portfolio of Fabian E.">
+		<meta name="author" content="Fabian E.">
+		<link rel="shortcut icon" type="image/x-icon" href="#">
+		<link rel="stylesheet" type="text/css" href="style/css/main.min.css">
+		<link rel="stylesheet" type="text/css" href="res/iconfont/css/all.min.css">
+		<title>Fabian</title>
+	</head>
+	<body>
+
+		<nav>
+			<ul id="nav_items_list">
+				<li><a href="index.html"><img id="nav_logo" src="res/images/f-logo.png" alt="logo" loading="lazy"></a></li>
+				<li><div onclick="window.open('index.html', '_self')"><a class="nav_link">Home</a><a class="nav_link_hover">Home</a></div></li>
+				<li><div onclick="scrollToAboutMe()"><a class="nav_link">About Me</a><a class="nav_link_hover">About Me</a></div></li>
+				<li><div onclick="scrollToProjects()"><a class="nav_link">Projects</a><a class="nav_link_hover">Projects</a></div></li>
+				<li><div onclick="scrollToContact()"><a class="nav_link">Contact</a><a class="nav_link_hover">Contact</a></div></li>
+				<li><div id="nav_menu_button" onclick="toggleMobileMenu()"><div id="menu_text">Menu</div><div class="menu_icon"><div class="menu_icon_bar bar1"></div><div class="menu_icon_bar bar2"></div><div class="menu_icon_bar bar3"></div></div></div></li>
+			</ul>
+		</nav>
+
+		<main>
+
+			<div id="start">
+
+				<div id="introduction">
+					<div id="introduction_headline">
+						<p>Hey!</p>
+						<p>I'm <span class="gradient_font" data-text="Fabian">Fabian</span></p>
+					</div>
+					<div class="vertical_divider"></div>
+					<div id="introduction_text">
+						I'm a software developer and a UI designer.
+					</div>
+					<div class="button_container" onclick="scrollToProjects()"><button class="button"><div class="button_overlay"></div>View Projects</button></div>
+				</div>
+
+				<!--<div id="socials">
+					<ul>
+						<li><i class="fa-brands fa-github"></i></li>
+						<li><i class="fa-brands fa-instagram"></i></li>
+					</ul>
+					<div id="socials_line"></div>
+				</div>-->
+
+				<div id="main_design">
+					<div id="main_design_img_container">
+						<img src="res/images/planetDesign.svg" alt="planet" loading="lazy">
+					</div>
+				</div>
+
+			</div>
+
+			<div>
+				<h1 class="headline">Skills</h1>
+				<!--<div class="headline_bg"><img src="res/images/skills_headline_background.svg"></div>-->
+				<hr class="headline_divider">
+				<h3 class="subheadline">WHAT I DO</h3>
+
+				<div class="skill_container">
+
+					<div class="skill_description">
+						<div class="i_align_left">
+							<h2 class="skills_headline">Software Development</h2>
+							<span><i class="fa-brands fa-java"></i>Java</span><span><i class="fa-brands fa-js"></i>JavaScript</span><span><i class="fa-brands fa-html5"></i>HTML</span><span><i class="fa-brands fa-css3-alt"></i>CSS</span><span><i class="fa-brands fa-git-alt"></i>Git</span>
+						</div>
+					</div>
+		
+					<div class="skill_image_container">
+						<div class="background_glow"><img src="res/images/glowBackground.svg#svgView(preserveAspectRatio(none))" loading="lazy"></div>
+						<div id="code_window" class="skill_image">
+							<div id="code_window_text">
+								<div class="code_window_header">
+									<div id="code_window_controls">
+										<div class="circle"></div><div class="circle"></div><div class="circle"></div>
+									</div>
+								</div>
+<pre id="pre_code">
+public class MyExperience {
+
+	/*
+
+	Let me try to give you a quick overview
+	of my programming experience:
+
+	Java:
+	- several projects for myself, mostly games
+	  (since 2017)
+	
+	HTML, CSS & JavaScript:
+	- worked on multiple websites for myself,
+	  started in 2016
+
+	Git:
+	- started using Git in 2021, so I know
+	  the basics
+
+	*/
+
+}</pre>
+							</div>
+						</div>
+			
+					</div>
+				</div>
+
+				<div class="skill_container" id="skill_design_container">
+
+					<div class="skill_description" style="justify-content: right;">
+						<div class="i_align_right">
+							<h2 class="skills_headline" style="text-align: right;">Design</h2>
+							<span><i class="fa-solid fa-pen-nib"></i>Affinity Designer</span><span><i class="fa-solid fa-image"></i>Affinity Photo</span>
+						</div>
+					</div>
+
+					<div class="skill_image_container">
+						<div class="background_glow"><img src="res/images/glowBackground.svg#svgView(preserveAspectRatio(none))" loading="lazy"></div>
+						<img class="skill_image" src="res/images/dark_theme_web_design.jpg" alt="website design" loading="lazy">
+					</div>
+
+				</div>
+
+
+
+				<h1 class="headline"><a id="projects_anchor">Projects</a></h1>
+				<hr class="headline_divider">
+				<h3 class="subheadline">SELECTED WORK</h3>
+
+
+
+				<div id="projects">
+					<div class="project_card">
+						<div class="project_description">
+							<h3>Timetable App</h3>
+							<div class="project_tags"><div class="project_tag">App</div><div class="project_tag">Android</div><div class="project_tag">Java</div></div>
+							<!--<p>This is a timetable app I created for myself</p>-->
+							<a>View more<i class="fa-solid fa-arrow-right"></i></a>
+						</div>
+						<picture>
+							<source srcset="res/images/timetable_app_mobile.png" media="(max-width: 550px)">
+							<img src="res/images/timetable_app.png" alt="timetable app">
+						</picture>
+					</div>
+					<div class="project_card">
+						<div class="project_description">
+							<h3>Tic Tac Toe</h3>
+							<div class="project_tags"><div class="project_tag">Java</div><div class="project_tag">Game</div><div class="project_tag">School project</div></div>
+							<!--<p>I made the game Tic Tac Toe as a school project</p>-->
+							<a>View more<i class="fa-solid fa-arrow-right"></i></a>
+						</div>				
+						<picture>
+							<source srcset="res/images/tic_tac_toe_game_mobile.png" media="(max-width: 550px)">
+							<img src="res/images/tic_tac_toe_game.png" alt="tic tac toe game">
+						</picture>	
+					</div>
+					<div class="project_card">
+						<div class="project_description">
+							<h3>TreterBeter Website</h3>
+							<div class="project_tags"><div class="project_tag">Website</div><div class="project_tag">Design</div><div class="project_tag">HTML, CSS, JavaScript</div></div>
+							<a href="https://treterbeter.github.io" target="_blank" rel="noopener">Visit Site<i class="fa-solid fa-arrow-right"></i></a>
+						</div>
+						<picture>
+							<source srcset="res/images/treterBeter_project_logo.svg" media="(max-width: 550px)">
+							<img src="res/images/treterBeter_project_logo.svg" alt="treterbeter website" loading="lazy">
+						</picture>
+					</div>
+					<!--<div class="project_card">
+						<div class="project_description">
+							<h3>Project 4</h3>
+						</div>
+					</div>
+					<div class="project_card">
+						<div class="project_description">
+							<h3>Project 5</h3>
+						</div>
+					</div>-->
+				</div>
+
+
+
+				<h1 class="headline"><a id="about_anchor">About Me</a></h1>
+				<hr class="headline_divider">
+				<h3 class="subheadline">WHO I AM</h3>
+
+				<!--I am Fabian - a 19 year old studying computer science in Germany. I started my programming journey back in 2016. Since then
+						I have worked on many websites and a few little games for myself. Additionally I like to try to design stuff.-->
+				<div id="about_me">
+					<div id="portrait"><img src="res/images/portrait_censored.png" alt="portrait of me" loading="lazy"></div>
+					<div class="about_points">
+						<div class="about_point"><img src="res/images/check_icon.svg" alt="check icon" loading="lazy">Studying computer science</div>
+						<div class="about_point"><img src="res/images/check_icon.svg" alt="check icon" loading="lazy">Nationality: Germany</div>
+						<div class="about_point"><img src="res/images/check_icon.svg" alt="check icon" loading="lazy">Age: 19</div>
+					</div>
+				</div>
+
+				<div id="contact">
+					Although I'm not currently looking for new work, my inbox is always open :)
+					<div class="button_container" onclick=""><button class="button"><div class="button_overlay"></div><i class="fa-regular fa-envelope"></i>Contact</button></div>
+				</div>
+
+			</div>
+
+		</main>
+
+		<footer>
+			<div id="footer_text">Handcrafted with &#10084; by Fabian - 2022<br>
+				Icons by <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome</a>
+			</div>
+			<div id="footer_socials">
+				<a href="https://github.com/f4byyyy" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a><a href="" target="_blank" rel="noopener" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+			</div>
+		</footer>
+
+		<div id="mobile_menu">
+			<div id="mobile_menu_content">
+				<ul>
+					<li onclick="scrollToTop(); toggleMobileMenu()">Home</li>
+					<li onclick="scrollToAboutMe(); toggleMobileMenu()">About Me</li>
+					<li onclick="scrollToProjects(); toggleMobileMenu()">Projects</li>
+					<li onclick="scrollToContact(); toggleMobileMenu()">Contact</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="js/main.js"></script>
+		
+	</body>
+</html>
