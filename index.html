@@ -39,14 +39,6 @@
 					<div class="button_container" onclick="scrollToProjects()"><button class="button"><div class="button_overlay"></div>View Projects</button></div>
 				</div>
 
-				<!--<div id="socials">
-					<ul>
-						<li><i class="fa-brands fa-github"></i></li>
-						<li><i class="fa-brands fa-instagram"></i></li>
-					</ul>
-					<div id="socials_line"></div>
-				</div>-->
-
 				<div id="main_design">
 					<div id="main_design_img_container">
 						<img src="res/images/planetDesign.svg" alt="planet" loading="lazy">
@@ -56,7 +48,7 @@
 			</div>
 
 			<div>
-				<h1 class="headline">Skills</h1>
+				<h1 class="headline"><a id="skills_anchor">Skills</a></h1>
 				<!--<div class="headline_bg"><img src="res/images/skills_headline_background.svg"></div>-->
 				<hr class="headline_divider">
 				<h3 class="subheadline">WHAT I DO</h3>
@@ -71,7 +63,7 @@
 					</div>
 		
 					<div class="skill_image_container">
-						<div class="background_glow"><img src="res/images/glowBackground.svg#svgView(preserveAspectRatio(none))" loading="lazy"></div>
+						<div class="background_glow"><img src="res/images/glowBackground.svg#svgView(preserveAspectRatio(none))" alt="background" loading="lazy"></div>
 						<div id="code_window" class="skill_image">
 							<div id="code_window_text">
 								<div class="code_window_header">
@@ -84,22 +76,22 @@ public class MyExperience {
 
 	/*
 
-	Let me try to give you a quick overview
-	of my programming experience:
+        HTML, CSS:  [#########-] 9/10
+         -> since 2016
 
-	Java:
-	- several projects for myself, mostly games
-	  (since 2017)
-	
-	HTML, CSS & JavaScript:
-	- worked on multiple websites for myself,
-	  started in 2016
+        Java:       [########--] 8/10
+         -> since 2017
 
-	Git:
-	- started using Git in 2021, so I know
-	  the basics
+        JavaScript: [######----] 6/10
+         -> since 2017
 
-	*/
+        Git:        [######----] 6/10  
+         -> since 2022
+
+        SCSS:       [####------] 4/10
+         -> since 2022  
+
+    */
 
 }</pre>
 							</div>
@@ -118,7 +110,7 @@ public class MyExperience {
 					</div>
 
 					<div class="skill_image_container">
-						<div class="background_glow"><img src="res/images/glowBackground.svg#svgView(preserveAspectRatio(none))" loading="lazy"></div>
+						<div class="background_glow"><img src="res/images/glowBackground.svg#svgView(preserveAspectRatio(none))" alt="background" loading="lazy"></div>
 						<img class="skill_image" src="res/images/dark_theme_web_design.jpg" alt="website design" loading="lazy">
 					</div>
 
@@ -137,7 +129,6 @@ public class MyExperience {
 						<div class="project_description">
 							<h3>Timetable App</h3>
 							<div class="project_tags"><div class="project_tag">App</div><div class="project_tag">Android</div><div class="project_tag">Java</div></div>
-							<!--<p>This is a timetable app I created for myself</p>-->
 							<a>View more<i class="fa-solid fa-arrow-right"></i></a>
 						</div>
 						<picture>
@@ -149,7 +140,6 @@ public class MyExperience {
 						<div class="project_description">
 							<h3>Tic Tac Toe</h3>
 							<div class="project_tags"><div class="project_tag">Java</div><div class="project_tag">Game</div><div class="project_tag">School project</div></div>
-							<!--<p>I made the game Tic Tac Toe as a school project</p>-->
 							<a>View more<i class="fa-solid fa-arrow-right"></i></a>
 						</div>				
 						<picture>
@@ -161,7 +151,7 @@ public class MyExperience {
 						<div class="project_description">
 							<h3>TreterBeter Website</h3>
 							<div class="project_tags"><div class="project_tag">Website</div><div class="project_tag">Design</div><div class="project_tag">HTML, CSS, JavaScript</div></div>
-							<a href="https://treterbeter.github.io" target="_blank" rel="noopener">Visit Site<i class="fa-solid fa-arrow-right"></i></a>
+							<a href="https://treterbeter.github.io" target="_blank" rel="noopener">Visit Site<i class="fa-solid fa-arrow-up-right-from-square"></i></a>
 						</div>
 						<picture>
 							<source srcset="res/images/treterBeter_project_logo.svg" media="(max-width: 550px)">
@@ -186,8 +176,6 @@ public class MyExperience {
 				<hr class="headline_divider">
 				<h3 class="subheadline">WHO I AM</h3>
 
-				<!--I am Fabian - a 19 year old studying computer science in Germany. I started my programming journey back in 2016. Since then
-						I have worked on many websites and a few little games for myself. Additionally I like to try to design stuff.-->
 				<div id="about_me_outer_wrapper">
 					<div id="about_me">
 						<div id="about_me_wrapper">
@@ -204,7 +192,7 @@ public class MyExperience {
 
 							</div>
 							<div id="about_me_background_logo">
-								<img src="res/images/f_logo_dark.png" alt="logo" loading="lazy">
+								<img src="res/images/f_logo_dark.png" alt="logo" loading="lazy" draggable="false">
 							</div>
 						</div>
 					</div>
@@ -220,13 +208,64 @@ public class MyExperience {
 		</main>
 
 		<footer>
-			<div id="footer_text">Handcrafted with &#10084; by Fabian - 2022<br>
+
+			<div class="footer_table">
+				<div>
+					<img src="res/images/f_logo_footer.png" alt="logo" loading="lazy">
+				</div>
+
+				<div>
+					<h5>Sitemap</h5>
+					<ul>
+						<li><a onclick="scrollToTop()">Home</a></li>
+						<li><a onclick="scrollToSkills()">Skills</a></li>
+						<li><a onclick="scrollToProjects()">Projects</a></li>
+						<li><a onclick="scrollToAboutMe()">About Me</a></li>
+					</ul>
+				</div>
+
+				<div>
+					<h5>Legal</h5>
+					<ul>
+						<li><a>Imprint</a></li>
+						<li><a>Privacy Policy</a></li>
+					</ul>
+				</div>
+
+				<div>
+					<h5>Credits</h5>
+					<ul>
+						<li>Handcrafted by me</li>
+						<li>Icons by <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome</a></li>
+					</ul>
+				</div>
+
+				<div class="footer_socials">
+					<h5>Socials&nbsp;</h5>
+					<ul>
+						<li><a href="https://github.com/f4byyyy" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a></li>
+						<li><a href="" target="_blank" rel="noopener" title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="horizontal_divider_footer"></div>
+
+			<div class="footer_bottom">
+				<div>Copyright &copy; <span id="footer_year">2022</span> &bull; Fabian E.</div>
+				<div class="scroll_to_top" onclick="scrollToTop()"><div>Back to top</div><img src="res/images/to_top_icon.svg" alt="scroll to top icon"></div>
+			</div>
+
+		</footer>
+
+		<!--<footer>
+			<div id="footer_text">Handcrafted with <i class="fa-solid fa-heart" style="font-size: 0.9em;"></i> by Fabian - 2022<br>
 				Icons by <a href="https://fontawesome.com/" target="_blank" rel="noopener">Font Awesome</a>
 			</div>
 			<div id="footer_socials">
 				<a href="https://github.com/f4byyyy" target="_blank" rel="noopener" title="GitHub"><i class="fa-brands fa-github"></i></a><a href="" target="_blank" rel="noopener" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
 			</div>
-		</footer>
+		</footer>-->
 
 		<div id="mobile_menu">
 			<div id="mobile_menu_content">
