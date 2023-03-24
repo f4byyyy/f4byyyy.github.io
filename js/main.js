@@ -85,6 +85,14 @@ window.addEventListener('resize', function() {
 
 //scrolling:
 
+function scrollToSkills() {
+    try {
+        document.getElementById('skills_anchor').scrollIntoView({ behavior: 'smooth' });
+    } catch(err) {
+        document.getElementById('skills_anchor').scrollIntoView(true);
+    }
+}
+
 function scrollToProjects() {
     try {
         document.getElementById('projects_anchor').scrollIntoView({ behavior: 'smooth' });
@@ -116,3 +124,7 @@ function scrollToTop() {
         window.scrollTo(0, 0);
     } 
 }
+
+//Set year in the footer:
+
+document.getElementById("footer_year").innerHTML = new Date().getFullYear();
