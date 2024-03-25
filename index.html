@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="description" content="Portfolio of Fabian E.">
 		<meta name="author" content="Fabian E.">
 		<link rel="shortcut icon" type="image/x-icon" href="res/images/website_icon.png">
-		<link rel="stylesheet" type="text/css" href="style/css/main.min.css">
+		<link rel="stylesheet" type="text/css" href="style/css/main.css">
 		<link rel="stylesheet" type="text/css" href="res/iconfont/css/all.min.css">
 		<title>Fabian</title>
 	</head>
@@ -58,7 +58,7 @@
 					<div class="skill_description">
 						<div class="i_align_left">
 							<h2 class="skills_headline">Software Development</h2>
-							<span><i class="fa-brands fa-java"></i>Java</span><span><i class="fa-brands fa-js"></i>JavaScript</span><span><i class="fa-brands fa-html5"></i>HTML</span><span><i class="fa-brands fa-css3-alt"></i>CSS</span><span><i class="fa-brands fa-git-alt"></i>Git</span>
+							<span><i class="fa-brands fa-java"></i>Java</span><span><i class="fa-brands fa-js"></i>JavaScript</span><span><i class="fa-brands fa-html5"></i>HTML</span><span><i class="fa-brands fa-css3-alt"></i>(S)CSS</span><span><i class="fa-brands fa-git-alt"></i>Git</span>
 						</div>
 					</div>
 		
@@ -129,7 +129,7 @@ public class MyExperience {
 						<div class="project_description">
 							<h3>Timetable App</h3>
 							<div class="project_tags"><div class="project_tag">App</div><div class="project_tag">Android</div><div class="project_tag">Java</div></div>
-							<a>View more<i class="fa-solid fa-arrow-right"></i></a>
+							<!--<a onclick="showProjectInformation('test')">View more<i class="fa-solid fa-arrow-right"></i></a>-->
 						</div>
 						<picture>
 							<source srcset="res/images/timetable_app_mobile.png" media="(max-width: 550px)">
@@ -140,7 +140,7 @@ public class MyExperience {
 						<div class="project_description">
 							<h3>Tic Tac Toe</h3>
 							<div class="project_tags"><div class="project_tag">Java</div><div class="project_tag">Game</div><div class="project_tag">School project</div></div>
-							<a>View more<i class="fa-solid fa-arrow-right"></i></a>
+							<!--<a>View more<i class="fa-solid fa-arrow-right"></i></a>-->
 						</div>				
 						<picture>
 							<source srcset="res/images/tic_tac_toe_game_mobile.png" media="(max-width: 550px)">
@@ -156,6 +156,17 @@ public class MyExperience {
 						<picture>
 							<source srcset="res/images/treterBeter_project_logo.svg" media="(max-width: 550px)">
 							<img src="res/images/treterBeter_project_logo.svg" alt="treterbeter website" loading="lazy">
+						</picture>
+					</div>
+					<div class="project_card">
+						<div class="project_description">
+							<h3>Chroma Shade</h3>
+							<div class="project_tags"><div class="project_tag">Tauri</div><div class="project_tag">Desktop App</div><div class="project_tag">WebGL</div></div>
+							<a href="https://github.com/f4byyyy/Chroma-Shade" target="_blank" rel="noopener">GitHub<i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+						</div>
+						<picture>
+							<source srcset="res/images/Chroma_Shade_logo_2.svg" media="(max-width: 550px)">
+							<img src="res/images/Chroma_Shade_logo_2.svg" alt="chroma shade logo" loading="lazy">
 						</picture>
 					</div>
 					<!--<div class="project_card">
@@ -186,7 +197,7 @@ public class MyExperience {
 							<div class="about_points">
 								<div class="about_point"><img src="res/images/check_icon_2.svg" alt="check icon" loading="lazy">studying computer science</div>
 								<div class="about_point"><img src="res/images/check_icon_2.svg" alt="check icon" loading="lazy">based in Germany</div>
-								<div class="about_point"><img src="res/images/check_icon_2.svg" alt="check icon" loading="lazy">19 years old</div>
+								<div class="about_point"><img src="res/images/check_icon_2.svg" alt="check icon" loading="lazy">20 years old</div>
 							</div>
 							<div id="about_me_socials">
 
@@ -276,6 +287,14 @@ public class MyExperience {
 					<li onclick="scrollToContact(); toggleMobileMenu()">Contact</li>
 				</ul>
 			</div>
+		</div>
+
+		<!--<div id="content_overlay_background" onclick="closeProjectInformation()"></div>-->
+		<div id="project_information_container">
+			<div class="container_header">
+				<div class="close_icon" onclick="closeProjectInformation()" title="Close"><div class="close_icon_bar1"></div><div class="close_icon_bar2"></div></div>
+			</div>
+			<div class="project_information_content"></div>
 		</div>
 
 		<script src="js/main.js"></script>
