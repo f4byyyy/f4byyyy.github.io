@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>LaVAN - An Adversarial Patch Attack</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- KaTeX -->
+		<link rel="stylesheet" href="../../res/katex/katex.min.css">
+		<script defer src="../../res/katex/katex.min.js"></script>
+		<script defer src="../../res/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+			delimiters: [
+				{left: '$$', right: '$$', display: true},
+				{left: '$', right: '$', display: false}],
+			throwOnError : false
+		  });">
+		</script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Adversarial Attacks</span>
+				<h1>LaVAN - An Adversarial Patch Attack</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 28.08.2024
+					</div>
+					<div id="tags">
+                        <tag>Python</tag><tag>Tensorflow</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+				<p>An adversarial patch is a digital or physical object which is placed into the input image of a convolutional neural network with the goal of triggering a missclassification.
+				In this article we will take a look at LaVAN - an adversarial patch attack proposed by Karmon et al. <a href="#source1">[1]</a>. I will
+				explain how the attack works and present my implementation of the attack using Tensorflow 2.</p>
+				
+				<!-- TODO: maybe insert an image here showing how a patch changes the output of a model (e.g. a clean image and the same image with a patch and the models prediction)-->
+				 
+				<!--<h2>Adversarial Patches</h2>
+				<p>An adversarial patch is a digital or physical object which is placed into the input image of a convolutional neural network with the goal of
+					triggering a missclassification. A patch attack can have different properties such as being <i>universal</i> or <i>targeted</i>. A <i>universal</i> patch works for
+					every input image for a model. A <i>targeted</i> attack means, that the patch should make the model predict a choosen target class. Additionally a patch can
+					be <i>robust</i> which means that it will still work when being transformed (e.g. moved or resized). The LaVAN attack in its base
+					version is only a targeted attack, neither a universal nor a robust one. Since the patch is not universal, we have to genearte a new patch for each image we want to attack.
+				</p>-->
+				<p>
+
+				</p>
+
+				<h2>How does LaVAN work?</h2>
+				<p>
+				The goal of the attack is to maximize the probability of the chosen target class $y_{\text{target}}$ and to minimize the probability of the true/correct class
+				$y_{\text{source}}$ which leaves us with the following optimization problem:
+				</p>
+
+				$$ \argmax_{p} \, [M(y = y_{\text{target}}\,|\,x') - M(y = y_{\text{source}}\,|\,x')] $$
+				
+				<p>Here $ M(y = y'\,|\,x') $ denotes the activation (or score) of class $y'$ before the softmax layer and $x'$ is the image $x$ we want to attack with
+					the patch $p$ inserted into it. According to the authors using the activations
+					before softmax speeds up convergence.				
+				</p>
+
+				<p>To generate the patch, we first have to choose an input image $x$ that we want to attack, a position and the width and height (or alternatively a mask) for
+					the patch $p$.
+					After initializing the patch (e.g. with zeros) it is generated iteratively. Each iteration the gradients of the scores of our
+					target class $y_{\text{target}}$ and the source class $y_{\text{source}}$ with respect to the attacked image $x'$ have to be calculated (which
+					can be done with a single backward pass of our model). Let's call these gradients $\nabla_{\text{target}}$ and $\nabla_{\text{source}}$:
+
+					$$ 
+					\begin{align*}
+					L_{\text{target}} &= M(y = y_{\text{target}}\,|\,x')\\
+       				L_{\text{source}} &= M(y = y_{\text{source}}\,|\,x')\\
+        			\nabla_{\text{target}} &= \frac{\partial L_{\text{target}}}{\partial x}\\
+        			\nabla_{\text{source}} &= \frac{\partial L_{\text{source}}}{\partial x}
+					\end{align*}
+					$$
+
+					The gradients $\nabla_{\text{target}}$ and $\nabla_{\text{source}}$ provide one value for each value in our input image. If the gradient
+					is positive, it means that the score of the class the gradient was generated for will increase if we increase the corresponding value
+					in the input image. If the gradient is negative, increasing the corresponding value in the input image will decrease the class score.
+
+					With this in mind, we have to update the patch $p$ like so:
+					$$p = p - \epsilon \cdot (\nabla_{\text{source}} - \nabla_{\text{target}})$$
+
+					After that we can clip the updated patch to the image domain (e.g.: [0-255]) if desired and finally
+					we have to update the image $x$ with the updated patch $p$.
+				</p>
+					
+				<p>
+					Now we can do the above steps for a given amount of iterations or we can stop when the generated patch causes
+					the score of the target class to be greater than e.g. 80%.
+				</p>
+
+				<h2>Implementation</h2>
+				<p>
+					The Python code for Tensorflow 2 looks like this:
+				</p>
+
+				<code class="python">import tensorflow as tf
+from keras import Model
+import numpy as np
+
+@tf.function
+def gradient_tape(input_img, logit_model, target_index, source_index):
+
+	input_img = tf.convert_to_tensor(input_img, dtype=tf.float32)
+		# you might have to use dtype=tf.float64 here ^
+
+	with tf.GradientTape(persistent=True) as tape:
+		tape.watch(input_img)
+		preds = logit_model(input_img)
+
+		loss_target = preds[:, target_index]
+		loss_source = preds[:, source_index]
+	
+	# get the gradients of the loss w.r.t. to the input image
+	gradient_target = tape.gradient(loss_target, input_img)
+	gradient_source = tape.gradient(loss_source, input_img)
+
+	del tape
+
+	return gradient_target, gradient_source
+
+
+def get_gradient(input_img, logit_model: Model, target_index, source_index):
+	
+	gradient_target, gradient_source = gradient_tape(input_img, logit_model,
+		target_index, source_index)
+	
+	# convert to numpy array
+	gradient_target = gradient_target.numpy()[0]
+	gradient_source = gradient_source.numpy()[0]
+	
+	return gradient_target, gradient_source
+
+
+
+def laVAN(model, img, x, y, width, height, epsilon, iterations, target_class,
+	subtract_mean=None, clip_range=None):
+	"""
+    Parameters:
+        img - the preprocessed input image to be attacked
+        x, y, width, height - the position and size of the patch
+        epsilon - this value scales the gradients
+        iterations - number of iterations
+        target_class - the target class of the attack
+        subtract_mean - a mean value that is subtracted from the input
+			images of the model for preprocessing, e.g.: [50.0, 13.0, 123.0]
+        clip_range - range for clipping the patch, e.g.: [0.0, 255.0]
+    """
+
+	patch = np.zeros((height, width, 3))
+	if(subtract_mean is not None):
+		patch[:, :] -= subtract_mean
+	source_class = model.predict(img, verbose=0)[0].argmax()
+
+	# using the second last layer to get the layer before softmax:
+	logit_model = Model(inputs=model.inputs, outputs=model.layers[-2].output)
+
+	for i in range(iterations):
+		gradient_target, gradient_source = get_gradient(img, logit_model,
+			target_class, source_class)
+		gradient_target = gradient_target[y:(y+height), x:(x+width)]
+		gradient_source = gradient_source[y:(y+height), x:(x+width)]
+
+		if(clip_range is not None):
+			patch[..., 0] = np.clip(patch[..., 0],
+				-subtract_mean[0]-clip_range[0], 
+				-subtract_mean[0]+clip_range[1])
+			patch[..., 1] = np.clip(patch[..., 1],
+				-subtract_mean[1]-clip_range[0],
+				-subtract_mean[1]+clip_range[1])
+			patch[..., 2] = np.clip(patch[..., 2],
+				-subtract_mean[2]-clip_range[0],
+				-subtract_mean[2]+clip_range[1])
+
+		patch = patch - (epsilon * (gradient_source - gradient_target))
+
+		img[0, y:(y+height), x:(x+width)] = patch
+
+		if(i % 100 == 0):
+			preds = model.predict(img, verbose = 0)
+			print(preds.argmax(), preds[0, preds.argmax()])</code>
+
+
+			Here is an example with a pretrained model:
+
+			<code class="python">import tensorflow as tf
+import numpy as np
+
+model = tf.keras.applications.ResNet50()
+
+img = tf.keras.utils.load_img("[img-path]", target_size=(224, 224))
+img = tf.keras.utils.img_to_array(img)
+img = np.expand_dims(img, axis=0)
+img = tf.keras.applications.resnet50.preprocess_input(img)
+
+mean = [103.939, 116.779, 123.68] # from: https://github.com/keras-team/keras/blob/master/keras/src/applications/imagenet_utils.py#L161
+
+laVAN(model, img, 27, 85, 48, 48, 5000, 1500, 603, mean, [0.0, 255.0])
+
+preds = model.predict(img, verbose = 0)
+print(preds.argmax(), preds[0, preds.argmax()])</code>
+					
+				<p>
+					I found that for epsilon values around 1000-5000 work well and for the iteration count values up to 10000 seem reasonable.
+				</p>
+
+				<p>
+					The code was tested with the following package versions on Windows:
+				</p>
+				<code class="plaintext">tensorflow-gpu	2.10.0
+python			3.9.19
+cudatoolkit		11.8.0
+cudnn			8.9.7.29</code>
+
+				<p>
+					There also exist implementations of this attack for <a href= "https://github.com/lith0613/LaVAN_python-tf-" target="_blank" rel="noopener noreferrer">Tensorflow 1</a>
+					and <a href="https://github.com/TaiiHu/LaVAN_pytorch" target="_blank" rel="noopener noreferrer">PyTorch</a>.
+				</p>
+
+				<hr>
+
+				<h2>Sources</h2>
+				<table id="sources_table">
+					<tr id="source1">
+						<td>[1]<br></td>
+						<td>D. Karmon, D. Zoran, and Y. Goldberg. LaVAN: Localized and visible adversarial noise. In
+							J. Dy and A. Krause, editors, Proceedings of the 35th International Conference on Machine
+							Learning, volume 80 of Proceedings of Machine Learning Research, pages 2507-2515. PMLR,
+							10-15 Jul 2018. <a href="http://proceedings.mlr.press/v80/karmon18a/karmon18a.pdf" target="_blank" rel="noopener noreferrer">http://proceedings.mlr.press/v80/karmon18a/karmon18a.pdf</a>.</td>
+					</tr>
+					<!--<tr>
+						<td>[2]</td>
+						<td>tes2</td>
+					</tr>-->
+				</table>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>

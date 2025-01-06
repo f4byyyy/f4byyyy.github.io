@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>Articles Guide</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+
+        <!-- KaTeX -->
+		<link rel="stylesheet" href="../../res/katex/katex.min.css">
+		<script defer src="../../res/katex/katex.min.js"></script>
+		<script defer src="../../res/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+			delimiters: [
+				{left: '$$', right: '$$', display: true},
+				{left: '$', right: '$', display: false}],
+			throwOnError : false
+		  });">
+		</script>
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Cheat Sheet</span>
+				<h1>A guide for writing articles with my styling</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 24.05.2024, Last Updated: 23.12.2024
+					</div>
+					<!--<div class="info_item"> 
+						<svg class="language_icon" stroke="currentColor" fill="currentColor" role="img" stroke-width="0" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg"><title>used programming languages</title><path d="M265.638,617.893L204.638,600.193C198.238,598.393 194.638,591.693 196.438,585.293L357.562,30.271C359.362,23.871 366.062,20.271 372.462,22.071L433.462,39.771C439.862,41.571 443.462,48.271 441.662,54.671L280.538,609.693C278.638,616.093 272.038,619.793 265.638,617.893ZM492.125,463.901L636.225,328.801C641.325,324.101 641.325,316.001 636.225,311.301L492.125,176.101C487.325,171.601 479.725,171.801 475.125,176.601L431.625,223.001C427.025,227.901 427.325,235.701 432.425,240.201L523.025,320.001L432.425,399.701C427.325,404.201 426.925,412.001 431.625,416.901L475.125,463.301C479.625,468.201 487.225,468.401 492.125,463.901ZM164.925,463.301L208.425,416.901C213.025,412.001 212.725,404.201 207.625,399.701L117.025,320.001L207.625,240.301C212.725,235.801 213.125,228.001 208.425,223.101L164.925,176.701C160.425,171.901 152.825,171.601 147.925,176.201L3.825,311.201C-1.275,315.901 -1.275,324.001 3.825,328.701L147.925,463.801C152.825,468.401 160.425,468.201 164.925,463.301Z"></path></svg>
+						Java, HTML, SCSS
+					</div>-->
+                    <div id="tags">
+                        <tag>JavaScript</tag><tag>HTML</tag><tag>CSS</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+				<h2>Headlines</h2>
+                <p>
+                    You can use <code class="inline plaintext">h2</code> <code class="inline plaintext">h3</code>, <code class="inline plaintext">h4</code>
+                    and <code class="inline plaintext">h5</code> for headings in your article. The <code class="inline plaintext">h1</code>-tag is already reserved for
+                    the article headline and <code class="inline plaintext">h6</code> is not meant for use (it will be very small). They look like this:
+                </p>
+
+				<h2>Headline 2</h2>
+				<h3>Headline 3</h3>
+				<h4>Headline 4</h4>
+				<h5>Headline 5</h5>
+                
+                <h2>Code</h2>
+                <p>For displaying code, the <code class="inline plaintext">&lt;code&gt;</code>-tag is used. Simply set the desired language as class of the tag and you will get
+                a code block like this:</p>
+
+				<code class="java">public class BinarySearch {
+	public int search(int[] list, int item) {
+		int index = Integer.MAX_VALUE;
+		
+		int low = 0, high = list.length - 1;
+		
+		while (low &lt;= high) { 
+			//...
+		}
+		return index;
+	}
+}
+</code>
+
+                <p>
+                    To display inline code, simply add the class <code class="inline plaintext">inline</code> to the <code class="inline plaintext">&lt;code&gt;</code>-tag.
+                    Moreover there are the following options for code elements:
+                </p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th nowrap>Class</th>
+                            <th nowrap>Description</th>
+                            <th nowrap>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="inline nohighlight">nohighlight</code></td>
+                            <td>this will only change the font to a monospace font</td>
+                            <td><code class="inline nohighlight">from x import y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="inline nohighlight">plaintext</code></td>
+                            <td>this disables syntax highlighting (the text will have only one color)</td>
+                            <td><code class="inline plaintext">from x import y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="inline nohighlight">[language-name]</code></td>
+                            <td>if you add the name of the programming language you'll get syntax highlighting</td>
+                            <td><code class="inline python">from x import y</code></td>
+                        </tr>
+                        <tr>
+                            <td><code class="inline nohighlight">wrap</code></td>
+                            <td>if necessesary, there is the option to make the code wrap to the next line</td>
+                            <td style="max-width: 179px;"><code class="inline python wrap" style="text-align: left;">from x import y as long-name</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <blockquote>
+                    <b>Note:</b> The <code class="inline plaintext">&lt;</code> and <code class="inline plaintext">&gt;</code> characters generally <u>do not</u> have to be replaced with <code class="inline plaintext">&amp;lt;</code> and <code class="inline plaintext">&amp;gt;</code> for it to work,
+                    because all <code class="inline plaintext">&lt;</code> characters inside a code element are automatically replaced with JavaScript. The only case where this doesn't work is when you
+                    have a <code class="inline plaintext">&lt;code></code>-tag inside your code element. Then you'll still have to replace the character yourself, otherwise it's optional.
+                </blockquote>
+                <!-- TODO: rewrite the above note: the characters only have to be replaced with &.. when you have a <code> element in the code element ... 
+                    IMPORTANT: <xyz> does not work, it only seems to work if there is a single > or <.
+                    -->
+
+                To change the theme of the syntax highlighting, you have to change the link of the stylesheet in the header for the light mode style and the link in the JavaScript code
+                for the dark mode style.
+                
+                <h2>Links</h2>
+                <p>
+                There are two possible styles for <code class="inline plaintext">&lt;a&gt;</code>-tags:<br>
+                </p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th nowrap>HTML</th>
+                            <th nowrap>Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code class="inline html">&lt;a href="#"&gt;Color&lt;/a&gt;</code></td>
+                            <td><a href="#">Color</a></td>
+                        </tr>
+                        <tr>
+                            <td><code class="inline html">&lt;a href="#" class="no-color"&gt;No color&lt;/a&gt;</code></td>
+                            <td><a href="#" class="no-color">No color</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                Keep in mind that links (or HTML tags in general) do not work inside <code class="inline plaintext">&lt;code></code>-tags.
+
+                <h2>Tables</h2>
+
+                <p>The predefined style for the tables looks like this:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th nowrap>Headline 1</th>
+                            <th nowrap>Headline 2</th>
+                            <th nowrap>Headline 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Item 1</td>
+                            <td><code class="inline plaintext">Item 2</code></td>
+                            <td>Item 3</td>
+                        </tr>
+                        <tr>
+                            <td>Item 4</td>
+                            <td><code class="inline plaintext">Item 5</code></td>
+                            <td>Item 6</td>
+                        </tr>
+                        <tr>
+                            <td>Item 7</td>
+                            <td>Item 8</td>
+                            <td>Item 9</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Item 10 (<code class="inline plaintext">colspan="2"</code>)</td>
+                            <td>Item 11 - This is a very long paragraph to stretch the table beyond the border of the text of this article to see what happens</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                The code for the table above:
+                
+                <code class="html"><table>
+<thead>
+    <tr>
+        <th nowrap>Headline 1</th>
+        <th nowrap>Headline 2</th>
+        <th nowrap>Headline 3</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>Item 1</td>
+        <td><code class="inline plaintext">Item 2</code></td>
+        <td>Item 3</td>
+    </tr>
+    <tr>
+        <td>Item 4</td>
+        <td><code class="inline plaintext">Item 5</code></td>
+        <td>Item 6</td>
+    </tr>
+    <tr>
+        <td>Item 7</td>
+        <td>Item 8</td>
+        <td>Item 9</td>
+    </tr>
+    <tr>
+        <td colspan="2">Item 10 (<code class="inline plaintext">
+            colspan="2"</code>)</td>
+        <td>Item 11 - This is a very long paragraph to stretch the table
+            beyond the border of the text of this article to see what
+            happens</td>
+    </tr>
+</tbody>
+</table>
+</code>
+
+                <blockquote>
+                    <b>Note:</b> the <code class="inline plaintext">&lt;thead&gt;</code> and <code class="inline plaintext">&lt;tbody&gt;</code> tags are not necessesary,
+                    but are considered good style.
+                </blockquote>
+
+                <h2>LaTeX</h2>
+                <p>To use LaTeX, include the following in the header:</p>
+                
+<code class="html"><!-- KaTeX -->
+<link rel="stylesheet" href="../../res/katex/katex.min.css">
+<script defer src="../../res/katex/katex.min.js"></script>
+<script defer src="../../res/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+    delimiters: [
+        {left: '$$', right: '$$', display: true},
+        {left: '$', right: '$', display: false}],
+    throwOnError : false
+    });">
+</script>
+</code>
+
+<p>Now you can use inline expressions with <code class="nohighlight inline">$[expression]$</code> and full expressions with <code class="inline nohighlight">$$</code> respectively anywhere in the document.
+Note that the <span>$</span> delimiter has to be listed after the <span>$$</span> delimiter, because otherwise <span>$$</span> would be interpreted as an empty expression.</p>
+
+<p>Here is an example for an inline math expression: $x_i = \epsilon \cdot y$ and here is another expression spanning a whole line:
+$$ \sum_{i=1}^n i = \frac{n \cdot (n-1)}{2}$$</p>
+
+                <hr>
+
+                <h2>Sources</h2>
+                <table id="sources_table">
+                    <tr id="source1">
+                        <td>[1]<br></td>
+                        <td>Example Name. <a href="#" target="_blank" rel="noopener noreferrer">Link</a></td>
+                    </tr>
+                    <tr>
+                        <td>[2]</td>
+                        <td>Example 2</td>
+                    </tr>
+                </table>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>

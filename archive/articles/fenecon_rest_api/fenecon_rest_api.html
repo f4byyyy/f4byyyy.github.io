@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>FEMS REST API guide</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Smart Home</span>
+				<h1>FEMS REST API guide</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 28.09.2024
+					</div>
+                    <div id="tags">
+                        <tag>Python</tag>
+						<tag>REST</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+
+				<h3>Introduction</h3>
+				<p>
+				To retrieve values, a GET request to the following address has to be sent: <code class="inline plaintext">http://[IP]:80/rest/channel/[COMPONENT]/[CHANNEL]</code>.
+				You have to replace <code class="inline plaintext">[IP]</code> with the IP-Adress of the FEMS and <code class="inline plaintext">[COMPONENT]/[CHANNEL]</code> according
+				to which values you would like to retrieve.
+				
+				For the request to be successful, the Authorization header has to be set with the password "user" and a username of
+				your choice (e.g.: "x").
+				</p>
+
+				<h3>API values</h3>
+
+				This is a list of components and their channels that I found interesting. The list is not complete. More (but not all) components and channels can be found in the official
+				documentation <a href="https://docs.fenecon.de/de/fems/fems-app/App_ModbusTCP_Lesezugriff.html#_modbus_tabelle" target="_blank" rel="noopener noreferrer">here</a>
+				and <a href="https://docs.fenecon.de/de/fems/glossar.html#_liste_der_komponenten_und_kan%C3%A4le" target="_blank" rel="noopener noreferrer">here</a>. To get every
+				available channel for a component see the example scripts below. To know which components you have simply click on the green tick in the top right corner of the FEMS online monitoring dashboard. 
+
+			   	<table class="booktabs-style">
+					<tr>
+						<th>Component</th>
+						<th>Channels</th>
+						<th>Notes</th>
+					</tr>
+					<tr>
+						<td rowspan="3"><code class="nohighlight inline">meter0</code><br><span class="info-text">(grid meter)</span></td>
+						<td><code class="nohighlight inline">Frequency</code></td>
+						<td>power grid frequency</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr class="top_border">
+						<td rowspan="3"><code class="nohighlight inline">battery0</code><br><span class="info-text">(the first battery)</span></td>
+						<td><code class="nohighlight inline">Tower0PackVoltage</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><code class="nohighlight inline">Tower0NoOfCycles</code></td>
+						<td>number of charging cycles</td>
+					</tr>
+					<tr>
+						<td><code class="nohighlight inline">Tower0Module0Cell000Voltage</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">Tower0TemperaturePreMos</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">Current</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">State</code></td>
+						<td>state of this battery (ok, info, warning, fault)</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">Soh</code></td>
+						<td>state of health</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">Soc</code></td>
+						<td>state of charge</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">Capacity</code></td>
+						<td>rated capacity of this battery</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">MaxCellTemperature</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">MinCellTemperature</code></td>
+						<td></td>
+					</tr>
+					<tr class="top_border">
+						<td rowspan="3"><code class="nohighlight inline">_sum</code><br><span class="info-text">(sum of the whole system)</span></td>
+						<td><code class="nohighlight inline">EssSoc</code></td>
+						<td>state of charge</td>
+					</tr>
+					<tr>
+						<td><code class="nohighlight inline">GridMode</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><code class="nohighlight inline">EssActivePower</code></td>
+						<td>charging power (negative), discharging power (positive)</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">EssReactivePower</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">EssActiveChargeEnergy</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">EssActiveDischargeEnergy</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">EssCapacity</code></td>
+						<td>rated battery capacity</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">State</code></td>
+						<td>global state of the whole system</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">GridBuyActiveEnergy</code></td>
+						<td>energy consumption from grid</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">GridSellActiveEnergy</code></td>
+						<td>energy sold to grid</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">ProductionActivePower</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">ConsumptionActivePower</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">ConsumptionActiveEnergy</code></td>
+						<td></td>
+					</tr>
+					<tr class="top_border">
+						<td rowspan="3"><code class="nohighlight inline">batteryInverter0</code><br><span class="info-text">(the first battery inverter)</span></td>
+						<td><code class="nohighlight inline">AirTemperature</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><code class="nohighlight inline">BmsPackTemperature</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><code class="nohighlight inline">RadiatorTemperature</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">WbmsTemperature</code></td>
+						<td></td>
+					</tr>
+					<tr class="top_border"></tr>
+						<td><code class="nohighlight inline">pvInverter0</code></td>
+						<td><code class="nohighlight inline">Current</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">Voltage</code></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><code class="nohighlight inline">ActiveProductionEnergy</code></td>
+						<td>AC lifetime active energy output</td>
+					</tr>
+			   	</table>
+
+				<!--<p>Keep in mind, that e.g. for battery related channels, <code class="inline plaintext">_sum</code> will give the same results as <code class="inline plaintext">battery0</code>
+					if you have only one battery.</p>-->
+				<p>The values from <code class="inline plaintext">_sum</code> will always return the sum of the whole system, e.g. if you have only one battery,
+					<code class="inline plaintext">_sum/EssSoc</code> and <code class="inline plaintext">battery0/Soc</code> will return the same value.</p>
+					<!-- maybe umformulieren: _sum gibt immer die summe aller kompnenten an, d.h. wenn man nur eine batterie hat ist liefert _sum/EssSoc das gleiche wie battery0/Soc.-->
+
+				<h3>Example: Python</h3>
+
+				Here is a quick example on how to get the state of charge with python:
+
+				<code class="python">import requests
+
+url = "http://192.168.0.0:80/rest/channel/_sum/EssSoc"
+
+username = "x"
+password = "user"
+
+session = requests.Session()
+session.auth = (username, password)
+
+response = session.get(url)
+response.raise_for_status()
+
+print(response.text)</code>
+
+				The response will be in the JSON format and could look like this:
+
+				<code class="json">{"address": "_sum/EssSoc",
+"type": "INTEGER",
+"accessMode": "RO",
+"text": "Range 0..100",
+"unit": "%",
+"value": 75}</code>
+
+			Multiple values can be retrieved with one request by listing multiple channels like so:
+
+			<code class="python">url = "http://192.168.0.0:80/rest/channel/battery0/(Tower0PackVoltage|Current|Soh)"</code>
+
+			Now the response will contain the three requested values Tower0PackVoltage, Current and Soh (state of health).
+			All possible values/channels for a component can be requested by using <code class="inline plaintext">(.*)</code> as channel:
+
+			<code class="python">url = "http://192.168.0.0:80/rest/channel/battery0/(.*)"</code>
+
+			Now we can print all the available addresses:
+
+			<code class="python">for entry in response.json():
+	print(entry.get("address"))</code>
+
+			If you have for example multiple batteries, you can retrieve the same values for every battery with one request by replacing the number in
+			the component name with <code class="inline plaintext">.+</code> like this:
+
+			<code class="python">url = "http://192.168.0.0:80/rest/channel/battery.+/Soc"</code>
+			
+			The URL above can be used to get the state of charge for every battery.
+
+			<div style="height: 32px"></div>
+
+			<hr>
+
+			<h2>Sources</h2>
+			<table id="sources_table">
+				<tr id="source1">
+					<td>[1]<br></td>
+					<td><a href="https://docs.fenecon.de/de/fems/fems-app/App_REST-JSON_Lese-Schreibzugriff.html" target="_blank" rel="noopener noreferrer">FEMS App REST/JSON Lese-/Schreibzugriff :: FENECON Dokumente</a></td>
+				</tr>
+				<tr>
+					<td>[2]</td>
+					<td><a href="https://docs.fenecon.de/de/fems/glossar.html" target="_blank" rel="noopener noreferrer">FEMS Glossar :: FENECON Dokumente</a></td>
+				</tr>
+				<tr>
+					<td>[3]</td>
+					<td><a href="https://romal.de/2023/12/11/fenecon-home-und-das-rest-api/" target="_blank" rel="noopener noreferrer">Fenecon Home und das Rest-API</a></td>
+				</tr>
+			</table>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>

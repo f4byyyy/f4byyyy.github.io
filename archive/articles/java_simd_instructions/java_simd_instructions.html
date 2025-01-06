@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>SIMD instructions in Java</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Programming</span>
+				<h1>SIMD instructions in Java</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 28.12.2023
+					</div>
+					<!--<div class="info_item"> 
+						<svg class="language_icon" stroke="currentColor" fill="currentColor" role="img" stroke-width="0" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg"><title>used programming languages</title><path d="M265.638,617.893L204.638,600.193C198.238,598.393 194.638,591.693 196.438,585.293L357.562,30.271C359.362,23.871 366.062,20.271 372.462,22.071L433.462,39.771C439.862,41.571 443.462,48.271 441.662,54.671L280.538,609.693C278.638,616.093 272.038,619.793 265.638,617.893ZM492.125,463.901L636.225,328.801C641.325,324.101 641.325,316.001 636.225,311.301L492.125,176.101C487.325,171.601 479.725,171.801 475.125,176.601L431.625,223.001C427.025,227.901 427.325,235.701 432.425,240.201L523.025,320.001L432.425,399.701C427.325,404.201 426.925,412.001 431.625,416.901L475.125,463.301C479.625,468.201 487.225,468.401 492.125,463.901ZM164.925,463.301L208.425,416.901C213.025,412.001 212.725,404.201 207.625,399.701L117.025,320.001L207.625,240.301C212.725,235.801 213.125,228.001 208.425,223.101L164.925,176.701C160.425,171.901 152.825,171.601 147.925,176.201L3.825,311.201C-1.275,315.901 -1.275,324.001 3.825,328.701L147.925,463.801C152.825,468.401 160.425,468.201 164.925,463.301Z"></path></svg>
+						Java, HTML, SCSS
+					</div>-->
+                    <div id="tags">
+                        <tag>Java</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+                <p>
+					With the realease of Java 16 it is now possible to use SIMD (Single Instruction Mutlitple Data) instructions to harness the full power of the CPU. This is made
+					possible by the <a target="_blank" rel="noopener noreferrer" href="https://docs.oracle.com/en/java/javase/21/docs/api/jdk.incubator.vector/jdk/incubator/vector/Vector.html">Vector API</a>. <br>
+					Because the API is still an incubator (non-final) feature, the following arguments have to be passed to the VM to use it: <code class="inline plaintext">--enable-preview --add-modules jdk.incubator.vector</code>
+				</p>
+	
+				<h2>Terminology - shapes and species</h2>
+
+				<p>
+					The <b>shape</b> of a vector is its size in bits (e.g. 256). A <b>species</b> is a combination of an element type (int, float, ...) and a shape.<br>
+					The optimal shape (size in bits) and thus the optimal species of a vector varies from CPU to CPU, which is why each subclass of Vector has a static <code class="inline plaintext">SPECIES_PREFERRED</code> attribute to get
+					the optimal species. The call <code class="inline plaintext">IntVector.SPECIES_PREFERRED</code> for example, returns the optimal species for processing integers on the currently running Java platform.<br>
+					Finally, the number of lanes in a vector is the number of its elements. For instance, a <span class="code_text">DoubleVector</span> with a shape of 256 bit has 4 lanes (because 64*4 = 256).
+				</p>
+
+				<h2>Example: Adding a number to each element of an array</h2>
+
+				<p>
+					One simple use case for SIMD instructions is adding one number to each element of an array:
+				</p>
+
+<code class="java">import jdk.incubator.vector.*;
+
+...
+					
+//get the preferred species for float vectors
+final VectorSpecies&lt;Float&gt; SPECIES = FloatVector.SPECIES_PREFERRED;
+	
+float[] array = new float[29];  
+Arrays.fill(array, 5.0f);
+
+float[] result = new float[array.length];
+	
+float addValue = 10.0f;
+/*instead of adding 10.0f, we could also add a vector that has the value
+10.0f for each element:
+FloatVector addValue = FloatVector.broadcast(SPECIES, 10.0f);*/
+
+int i = 0; //declare i here so we can use it after the first for loop
+for(; i &lt; SPECIES.loopBound(array.length); i += SPECIES.length()) {
+	
+	//get a float vector from the array at index i
+	FloatVector vec = FloatVector.fromArray(SPECIES, array, i);
+	
+	//add 10.0 to each element of the vector
+	FloatVector sum = vec.add(addValue);
+	
+	//put the result in the result array at index i
+	sum.intoArray(result, i);
+	
+}
+
+//process the rest of the array
+for(; i &lt; array.length; i++) {
+	result[i] = array[i] + addValue;
+}
+</code>
+
+			<h2>Using Masks</h2>
+
+			<p>Most operations also accept a mask. A <code class="inline nohighlight">VectorMask&lt;E&gt;</code> has a boolean value for each lane. An operation will only be executed on the lanes on which
+			the mask is <code class="inline nohighlight">true</code>. For example, we could multiply each value of an array by 2 but only if the number is less than 50:</p>
+			
+<code class="java">//get the preferred species for float vectors
+final VectorSpecies&lt;Integer&gt; SPECIES = IntVector.SPECIES_PREFERRED;
+
+//fill array with random numbers
+SplittableRandom random = new SplittableRandom();
+int[] array = new int[42];  
+for(int i = 0; i &lt; array.length; i++) {
+	array[i] = random.nextInt(100);
+}
+
+int[] result = new int[array.length];
+
+int i = 0;
+for(; i &lt; SPECIES.loopBound(array.length); i += SPECIES.length()) {
+	
+	//get an int vector from the array at index i
+	IntVector vec = IntVector.fromArray(SPECIES, array, i);
+	
+	//get the mask that is true for each lane where the value of vec is less 
+	//than 50
+	VectorMask&lt;Integer&gt; mask = vec.lt(50);
+	
+	//multiply by 2 (only on the lanes where the mask is true) and write the
+	//result to the array
+	vec.mul(2, mask).intoArray(result, i);			
+	
+}
+
+//process the rest of the array
+for(; i &lt; array.length; i++) {
+	int num = array[i];
+	result[i] = (num &lt; 50) ? (num * 2) : num;
+}
+</code>
+
+				<p>Be aware, that sometimes the JVM might already optimize your code so that implementing your own vectorization might not bring any performace increase. Additionally, the
+					performance increase can greatly differ from CPU to CPU. For example, a CPU that supports the AVX-512 instruction set can handle up to 512 bits per instruction which is twice
+					as much as with AVX2.</p>
+				
+				<hr>
+
+				<h2>Sources</h2>
+				<table id="sources_table">
+					<tr id="source1">
+						<td>[1]<br></td>
+						<td><a target="_blank" rel="noopener noreferrer" href="https://docs.oracle.com/en/java/javase/21/docs/api/jdk.incubator.vector/jdk/incubator/vector/Vector.html">Oracle - JDK 21 Docs</a></td>
+					</tr>
+					<tr>
+						<td>[2]</td>
+						<td><a target="_blank" rel="noopener noreferrer" href="https://www.baeldung.com/java-vector-api">Baeldung</a></td>
+					</tr>
+				</table>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>
