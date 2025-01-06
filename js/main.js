@@ -44,8 +44,7 @@ function toggleMobileMenu() {
 
         document.getElementById('menu_text').innerHTML = 'Close';
 
-        document.getElementsByTagName('body')[0].style.height = '100%';
-        document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+        lockBodyScroll();
 
         window.scrollTo(0, 0);
 
@@ -63,12 +62,21 @@ function toggleMobileMenu() {
 
         document.getElementById('menu_text').innerHTML = 'Menu';
 
-        document.getElementsByTagName('body')[0].style.height = '';
-        document.getElementsByTagName('body')[0].style.overflowY = 'auto';
+        unlockBodyScroll();
 
         menuOpen = false;
     }
 
+}
+
+function lockBodyScroll() {
+    document.getElementsByTagName('body')[0].style.height = '100%';
+    document.getElementsByTagName('body')[0].style.overflowY = 'hidden';
+}
+
+function unlockBodyScroll() {
+    document.getElementsByTagName('body')[0].style.height = '';
+    document.getElementsByTagName('body')[0].style.overflowY = 'auto';
 }
 
 //close menu when window is resized to greater width
@@ -127,4 +135,24 @@ function scrollToTop() {
 
 //Set year in the footer:
 
-document.getElementById("footer_year").innerHTML = new Date().getFullYear();
+//document.getElementById("footer_year").innerHTML = new Date().getFullYear();
+
+
+
+//Open project information
+
+function showProjectInformation(file) {
+
+    document.getElementById("project_information_container").style.display = "block";
+
+    lockBodyScroll();
+
+}
+
+function closeProjectInformation() {
+    
+    document.getElementById("project_information_container").style.display = "none";
+
+    unlockBodyScroll();
+
+}
