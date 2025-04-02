@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>CSS Gradient Border</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Web</span>
+				<h1>CSS Gradient Border</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 02.01.2022, last edit: 29.02.2024
+					</div>
+					<!--<div class="info_item"> 
+						<svg class="language_icon" stroke="currentColor" fill="currentColor" role="img" stroke-width="0" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg"><title>used programming languages</title><path d="M265.638,617.893L204.638,600.193C198.238,598.393 194.638,591.693 196.438,585.293L357.562,30.271C359.362,23.871 366.062,20.271 372.462,22.071L433.462,39.771C439.862,41.571 443.462,48.271 441.662,54.671L280.538,609.693C278.638,616.093 272.038,619.793 265.638,617.893ZM492.125,463.901L636.225,328.801C641.325,324.101 641.325,316.001 636.225,311.301L492.125,176.101C487.325,171.601 479.725,171.801 475.125,176.601L431.625,223.001C427.025,227.901 427.325,235.701 432.425,240.201L523.025,320.001L432.425,399.701C427.325,404.201 426.925,412.001 431.625,416.901L475.125,463.301C479.625,468.201 487.225,468.401 492.125,463.901ZM164.925,463.301L208.425,416.901C213.025,412.001 212.725,404.201 207.625,399.701L117.025,320.001L207.625,240.301C212.725,235.801 213.125,228.001 208.425,223.101L164.925,176.701C160.425,171.901 152.825,171.601 147.925,176.201L3.825,311.201C-1.275,315.901 -1.275,324.001 3.825,328.701L147.925,463.801C152.825,468.401 160.425,468.201 164.925,463.301Z"></path></svg>
+						Java, HTML, SCSS
+					</div>-->
+                    <div id="tags">
+                        <tag>CSS</tag><tag>HTML</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+                <p>
+					Let's say we would like to give our <code class="inline plaintext">&lt;div&gt;</code>-element a 2px wide gradient border. To achieve this we can use the <code class="inline plaintext">::before</code> selector like so:
+				</p>
+									
+				<code class="css">.box {
+	max-width: 250px;
+	height: 50px;
+	border-radius: 20px; /* 22px - 2px */
+	position: relative; /*necessary*/
+	background-color: #fff;
+	margin-left: auto;
+	margin-right: auto;
+}
+.box::before {
+	border-radius: 22px;
+	content: '';
+	background-image: linear-gradient(135deg, #00d2ff, #3a7bd5);
+	padding: 2px;
+	width: 100%;
+	height: 100%;
+	top: -2px;
+	left: -2px;
+	position: absolute;
+	z-index: -1;
+}</code>
+				
+				<p>
+					It is important to set the position to <code class="inline plaintext">relative</code> and to specify a <code class="inline plaintext">background-color</code> to overwrite the properties of the <code class="inline plaintext">::before</code> selector.
+				</p>
+				<p>
+					Note that it looks better to set the <code class="inline plaintext">border-radius</code> of the inner box smaller than the <code class="inline plaintext">border-radius</code> of the outer box with the <code class="inline plaintext">::before</code> selector.
+					A good rule for this is: inner radius = outer radius - padding.
+				</p>
+				<p>
+					The result will look like this:
+				</p>
+				<p>
+				<div class="box"></div>
+				</p>
+
+				<hr style="margin-top: 64px">
+
+				<h2>Sources</h2>
+				<table id="sources_table">
+					<tr id="source1">
+						<td>[1]<br></td>
+						<td><a href="https://stackoverflow.com/a/7066176/11846368" target="_blank" rel="noopener noreferrer">Stack Overflow</a></td>
+					</tr>
+				</table>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<style>
+			.box {
+				max-width: 250px;
+				height: 50px;
+				border-radius: 20px;
+				position: relative;
+				background-color: var(--background-color);
+				margin-left: auto;
+				margin-right: auto;
+			}
+			.box::before {
+				border-radius: 22px;
+				content: '';
+				background-image: linear-gradient(135deg, #00d2ff, #3a7bd5);
+				padding: 2px;
+				width: 100%;
+				height: 100%;
+				top: -2px;
+				left: -2px;
+				position: absolute;
+				z-index: -1;
+			}
+		</style>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>
