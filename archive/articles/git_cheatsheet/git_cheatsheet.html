@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>Git Cheatsheet</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Cheatsheet</span>
+				<h1>Git Cheatsheet</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 26.09.2022 <!-- updated 10.03.2023 -->
+					</div>
+                    <div id="tags">
+                        <tag>Bash</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+                <h2>Getting started:</h2>
+				
+				<p><code class="inline plaintext">git clone [your-copied-url]</code> - If your repository does not exist locally, get the link from GitHub and clone it to your local machine</p>
+				
+				<p><code class="inline plaintext">git init</code> - make the current directory a Git repository</p>
+				
+				<p><h2>Branches:</h2></p>
+				<p><code class="inline plaintext">git branch</code> - lists all local branches (you are in the one marked with *)</p>
+				<p><code class="inline plaintext">git branch -a</code> - lists all local and remote branches (you are in the one marked with *)</p>
+				<p><code class="inline plaintext">git checkout [branch-name]</code> - Switch to that branch (files are updated to match the selected branch)</p>
+				<p><code class="inline plaintext">git checkout -b [new-branch-name]</code> - create and checkout to a new branch</p>
+				<br>
+				<p><code class="inline plaintext">git branch -d [branch-name]</code> - delete branch locally</p>
+				<br>
+				<p><code class="inline plaintext">git merge [branch-name]</code> - merges the given branch into your current branch</p>
+
+				<h2>Committing changes:</h2>
+				<p><code class="inline plaintext">git add [path/file-name]</code> - stage a file (you can also stage all changes by using . as file name: <code class="inline plaintext">git add .</code> )</p>
+				<p><code class="inline plaintext">git reset [path/file-name]</code> - unstage a file</p>
+				<p><code class="inline plaintext">git commit -m "[your-commit-message]"</code> - commit your changes with a message (55 characters)</p>
+				<p><code class="inline plaintext">git push</code> - uploads the commits of your current branch (if your branch also exists on the remote)</p>
+				<p><code class="inline plaintext">git push -u origin [branch-name]</code> - uploads the commits of the given branch (use this if your branch does not exist on the remote)</p>
+
+				<h2>Downloading changes:</h2>
+				<p><code class="inline plaintext">git fetch</code> - copies the files of the remote repository into your local repository</p>
+				<p><code class="inline plaintext">git pull</code> - copies the files of the remote repository directly into your workspace (and your local repository)</p>
+
+				<h2>Other:</h2>
+				<p><code class="inline plaintext">git status</code> - shows which changes are staged and which are not</p>
+
+				<img src="git_diagram.svg" class="diagram">
+
+				<div style="height: 32px"></div>
+
+				<hr>
+
+				<h2>Sources</h2>
+				<table id="sources_table">
+					<tr id="source1">
+						<td>[1]<br></td>
+						<td><a href="https://gist.github.com/ccannon94/982d69b23659d66c0ca6fb1384f94c97#accessing-the-repository" target="_blank" rel="noopener noreferrer">Source1</a></td>
+					</tr>
+					<tr>
+						<td>[2]</td>
+						<td><a href="https://education.github.com/git-cheat-sheet-education.pdf" target="_blank" rel="noopener noreferrer">GitHub</a></td>
+					</tr>
+					<tr>
+						<td>[3]</td>
+						<td><a href="https://www.nobledesktop.com/learn/git/git-branches" target="_blank" rel="noopener noreferrer">nobledesktop</a></td>
+					</tr>
+				</table>
+
+				<style>
+					main p {
+						margin-bottom: 0.6rem;
+					}
+
+					.diagram {
+						display: block;
+						margin: 24px auto 0 auto;
+						width: 60%;
+					}
+
+					@media only screen and (max-width: 500px) {
+
+					.diagram {
+						width: 100%;
+					}
+
+					}
+				</style>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>

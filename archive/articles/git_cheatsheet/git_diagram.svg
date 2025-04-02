@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1469 1763" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-miterlimit:10;">
+    <g transform="matrix(1,0,0,1,-77,-149)">
+        <g transform="matrix(1,0,0,1,-139.766,0)">
+            <g transform="matrix(1,-0,-0,1,216.766,149)">
+                <path d="M1101.6,667.599L1090.54,684.18L1079.49,667.599" style="fill:none;stroke:rgb(34,87,122);stroke-width:7.37px;"/>
+                <path d="M1090.54,232.171L1090.54,684.18" style="fill:none;stroke:rgb(34,87,122);stroke-width:7.37px;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,-840.985,0)">
+            <g transform="matrix(1,-0,-0,1,917.985,149)">
+                <path d="M467.074,1584.84L483.656,1595.9L467.074,1606.95" style="fill:none;stroke:rgb(34,87,122);stroke-width:7.37px;"/>
+                <path d="M490.299,154.102L389.324,154.102L389.324,1595.9L483.656,1595.9" style="fill:none;stroke:rgb(34,87,122);stroke-width:7.37px;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,4.54747e-13,8.62759)">
+            <g transform="matrix(1,0,0,1,1.30114,-93.266)">
+                <path d="M1479.4,387.741C1479.4,344.654 1444.42,309.672 1401.33,309.672L644.066,309.672C600.979,309.672 565.997,344.654 565.997,387.741C565.997,430.828 600.979,465.809 644.066,465.809L1401.33,465.809C1444.42,465.809 1479.4,430.828 1479.4,387.741Z" style="fill:rgb(34,87,122);"/>
+            </g>
+            <g transform="matrix(1,0,0,1,9.95864,51.3755)">
+                <text x="735.241px" y="266.266px" style="font-family:'Jost-Medium', 'Jost';font-weight:500;font-size:66.667px;fill:white;">Remote Repositor<tspan x="1256.44px " y="266.266px ">y</tspan></text>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,0,623.417)">
+            <g transform="matrix(1,0,0,1,1.30114,-93.266)">
+                <path d="M1479.4,387.741C1479.4,344.654 1444.42,309.672 1401.33,309.672L644.066,309.672C600.979,309.672 565.997,344.654 565.997,387.741C565.997,430.828 600.979,465.809 644.066,465.809L1401.33,465.809C1444.42,465.809 1479.4,430.828 1479.4,387.741Z" style="fill:rgb(56,163,165);"/>
+            </g>
+            <g transform="matrix(1,0,0,1,7.45864,53.7421)">
+                <text x="771.641px" y="266.266px" style="font-family:'Jost-Medium', 'Jost';font-weight:500;font-size:66.667px;fill:white;">Local Repositor<tspan x="1224.51px " y="266.266px ">y</tspan></text>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,0,1036.92)">
+            <g transform="matrix(1,0,0,1,1.30114,-93.266)">
+                <path d="M1479.4,387.741C1479.4,344.654 1444.42,309.672 1401.33,309.672L644.066,309.672C600.979,309.672 565.997,344.654 565.997,387.741C565.997,430.828 600.979,465.809 644.066,465.809L1401.33,465.809C1444.42,465.809 1479.4,430.828 1479.4,387.741Z" style="fill:rgb(87,204,153);"/>
+            </g>
+            <g transform="matrix(1,0,0,1,169.825,53.8755)">
+                <text x="771.641px" y="266.266px" style="font-family:'Jost-Medium', 'Jost';font-weight:500;font-size:66.667px;fill:white;">Inde<tspan x="900.508px " y="266.266px ">x</tspan></text>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,0,1450.42)">
+            <g transform="matrix(1,0,0,1,1.30114,-93.266)">
+                <path d="M1479.4,387.741C1479.4,344.654 1444.42,309.672 1401.33,309.672L644.066,309.672C600.979,309.672 565.997,344.654 565.997,387.741C565.997,430.828 600.979,465.809 644.066,465.809L1401.33,465.809C1444.42,465.809 1479.4,430.828 1479.4,387.741Z" style="fill:rgb(128,237,153);"/>
+            </g>
+            <g transform="matrix(1,0,0,1,109.225,52.9755)">
+                <text x="752.008px" y="266.266px" style="font-family:'Jost-Medium', 'Jost';font-weight:500;font-size:66.667px;fill:white;">W<tspan x="814.675px " y="266.266px ">o</tspan>rkspace</text>
+            </g>
+        </g>
+        <g transform="matrix(0.722211,0,0,0.722211,231.389,138.192)">
+            <text x="1348.81px" y="668.659px" style="font-family:'CourierNewPS-BoldMT', 'Courier New', monospace;font-weight:700;font-size:69.232px;fill:rgb(34,87,122);">git fetch</text>
+        </g>
+        <g transform="matrix(0.722211,0,0,0.722211,-402.483,138.192)">
+            <text x="1348.81px" y="668.659px" style="font-family:'CourierNewPS-BoldMT', 'Courier New', monospace;font-weight:700;font-size:69.232px;fill:rgb(56,163,165);">git push</text>
+        </g>
+        <g transform="matrix(0.722211,0,0,0.722211,-845.793,528.514)">
+            <text x="1348.81px" y="668.659px" style="font-family:'CourierNewPS-BoldMT', 'Courier New', monospace;font-weight:700;font-size:69.232px;fill:rgb(34,87,122);">git pull /</text>
+            <text x="1514.99px" y="737.891px" style="font-family:'CourierNewPS-BoldMT', 'Courier New', monospace;font-weight:700;font-size:69.232px;fill:rgb(34,87,122);">clone</text>
+        </g>
+        <g transform="matrix(1,0,0,1,66.1512,0)">
+            <g transform="matrix(1,-0,-0,1,10.8488,149)">
+                <path d="M762.397,255.396L773.451,238.814L784.506,255.396" style="fill:none;stroke:rgb(56,163,165);stroke-width:7.37px;"/>
+                <path d="M773.451,690.823L773.451,238.814" style="fill:none;stroke:rgb(56,163,165);stroke-width:7.37px;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,158.389,0)">
+            <g transform="matrix(1,-0,-0,1,-81.3895,149)">
+                <path d="M762.397,1283.69L773.451,1267.11L784.506,1283.69" style="fill:none;stroke:rgb(128,237,153);stroke-width:7.37px;"/>
+                <path d="M773.451,1517.83L773.451,1267.11" style="fill:none;stroke:rgb(128,237,153);stroke-width:7.37px;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,158.389,-413.503)">
+            <g transform="matrix(1,-0,-0,1,-81.3895,562.503)">
+                <path d="M762.397,870.185L773.451,853.603L784.506,870.185" style="fill:none;stroke:rgb(87,204,153);stroke-width:7.37px;"/>
+                <path d="M773.451,1104.33L773.451,853.603" style="fill:none;stroke:rgb(87,204,153);stroke-width:7.37px;stroke-linejoin:round;stroke-miterlimit:1.5;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,158.389,0)">
+            <text x="720.339px" y="1561.27px" style="font-family:'CourierNewPS-BoldMT', 'Courier New', monospace;font-weight:700;font-size:50px;fill:rgb(128,237,153);">git add</text>
+        </g>
+        <g transform="matrix(1,0,0,1,158.389,-413.503)">
+            <text x="720.339px" y="1561.27px" style="font-family:'CourierNewPS-BoldMT', 'Courier New', monospace;font-weight:700;font-size:50px;fill:rgb(87,204,153);">git commit</text>
+        </g>
+    </g>
+</svg>
