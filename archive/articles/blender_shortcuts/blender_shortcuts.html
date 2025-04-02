@@ -29,7 +29,7 @@
 				<div id="article_info">
 					<div class="info_item">
 						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
-						Published: 12.10.2024<!-- last update: 27.12.2024 -->
+						Published: 12.10.2024, last edit: 23.03.2025<!-- last update: 27.12.2024; 29.01.2025; 26.02.2025 -->
 					</div>
 					<!--<div class="info_item"> 
 						<svg class="language_icon" stroke="currentColor" fill="currentColor" role="img" stroke-width="0" viewBox="0 0 640 640" xmlns="http://www.w3.org/2000/svg"><title>used programming languages</title><path d="M265.638,617.893L204.638,600.193C198.238,598.393 194.638,591.693 196.438,585.293L357.562,30.271C359.362,23.871 366.062,20.271 372.462,22.071L433.462,39.771C439.862,41.571 443.462,48.271 441.662,54.671L280.538,609.693C278.638,616.093 272.038,619.793 265.638,617.893ZM492.125,463.901L636.225,328.801C641.325,324.101 641.325,316.001 636.225,311.301L492.125,176.101C487.325,171.601 479.725,171.801 475.125,176.601L431.625,223.001C427.025,227.901 427.325,235.701 432.425,240.201L523.025,320.001L432.425,399.701C427.325,404.201 426.925,412.001 431.625,416.901L475.125,463.301C479.625,468.201 487.225,468.401 492.125,463.901ZM164.925,463.301L208.425,416.901C213.025,412.001 212.725,404.201 207.625,399.701L117.025,320.001L207.625,240.301C212.725,235.801 213.125,228.001 208.425,223.101L164.925,176.701C160.425,171.901 152.825,171.601 147.925,176.201L3.825,311.201C-1.275,315.901 -1.275,324.001 3.825,328.701L147.925,463.801C152.825,468.401 160.425,468.201 164.925,463.301Z"></path></svg>
@@ -50,13 +50,27 @@
 				<h2>Edit Mode</h2>
 				<p><kbd>Ctrl</kbd> + <kbd>E</kbd> - Open Edge menu</p>
 				<p><kbd>Ctrl</kbd> + <kbd>E</kbd> > <kbd>Mark Sharp/Clear Sharp</kbd> - (un)mark an edge as sharp, this affects e.g. shade smooth</p>
+				<p><kbd>Shift</kbd> + <kbd>V</kbd> - Slide selected vertices along edges (pressing <kbd>G</kbd> twice also works)</p>
 
 				<h2>Other</h2>
 				<p><kbd>Shift</kbd> + <kbd>Tab</kbd> - Toggle snap on/off (the magnet at the top)</p>
 
+
 				<div style="height: 96px; width: auto;"></div>
-				<h2>Useful cheatsheets and guides</h2>
+				<h2>Troubleshooting / quick tips</h2>
+				<h4>A single flat color is slightly noisy after exporting to an image</h4>
+				-> Output > Post Processing > set Dither to 0.0 - this disables dithering (color bands may start to show on other image areas)
+
+				<h4>Make a light only affect some objects</h4>
+				Select the light > Object Properties > Shading > Light Linking - add the collection of objects that the light source should light up
+				<!-- <svg style="padding: 0 2px; margin-bottom: -3px" height="1.25rem" viewBox="0 0 1400 1700" width="1.25rem" xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"><sodipodi:namedview pagecolor="#303030" showgrid="true"><inkscape:grid id="grid5" units="px" spacingx="100" spacingy="100" color="#4772b3" opacity="0.2" visible="true" /></sodipodi:namedview><g fill="#fff"><g enable-background="new" transform="matrix(100 0 0 100 -102099.92 -155500.003)"><path d="m1028 1556c-3.2833 0-6 2.4414-6 5.5 0 1.7056.9046 3.146 2.1523 4.3594l.9942.9941a.50004997.50004997 0 0 0 .3027.1485.50004997.50004997 0 0 0 .051.998h5a.50004997.50004997 0 0 0 .045-.998.50004997.50004997 0 0 0 .3086-.1485l.9981-.998c1.2122-1.1985 2.1465-2.6518 2.1465-4.3535 0-3.0586-2.7167-5.5-6-5.5zm0 1c2.7919 0 5 2.0358 5 4.5 0 1.3342-.7428 2.5488-1.8516 3.6445l-1 1a.50004997.50004997 0 0 0 .2793.8535h-4.8594a.50004997.50004997 0 0 0 .2871-.8535l-1-1a.50004997.50004997 0 0 0 -.01-.01c-1.1397-1.1082-1.8477-2.2864-1.8477-3.6406 0-2.4642 2.2081-4.5 5-4.5zm-2.5 12a.50004997.50004997 0 1 0 0 1h1.5v.5a.50004997.50004997 0 0 0 .5.5h1a.50004997.50004997 0 0 0 .5-.5v-.5h1.5a.50004997.50004997 0 1 0 0-1z"/><path d="m1025.4902 1561.0059a.50005.50005 0 0 0 -.3437.8476l.8535.8535v1.543a.50005.50005 0 1 0 1 0v-1.25h2v1.25a.50005.50005 0 1 0 1 0v-1.543l.8535-.8535a.50005.50005 0 0 0 -.707-.707l-.8535.8535h-2.586l-.8535-.8535a.50005.50005 0 0 0 -.3633-.1406z" opacity=".6"/></g></g></svg> -->
+
+
+				<div style="height: 96px; width: auto;"></div>
+				<h2>Useful cheatsheets, guides and resources</h2>
 				<p><a href="https://hollisbrown.github.io/blendershortcuts/" target="_blank" rel="noopener noreferrer">Keyboard shortcuts</a></p>
+				<p><a href="https://github.com/agmmnn/awesome-blender" target="_blank" rel="noopener noreferrer">A curated list of awesome Blender resources</a></p>
+				<p><a href="https://ui.blender.org/icons" target="_blank" rel="noopener noreferrer">Blender's icons</a></p>
 
 			</main>
 
