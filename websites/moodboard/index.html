@@ -1,1 +1,107 @@
+<!doctype html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8" />
+        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+        <title>Moodboard</title>
 
+        <link href="res/style.css" rel="stylesheet" type="text/css"/>
+
+        <script src="res/script.js" defer></script>
+    </head>
+    <body>
+        
+        <nav id="navigation">
+
+            <div class="nav_title">
+                <b>Moodboards</b>
+                <a href="#" title="Toggle sidebar" onclick="toggleMenu()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M9 3v18"></path></svg></a>
+            </div>
+
+            <div class="moodboards">
+                <!-- template for a moodboard nav item
+                <a href="#" class="moodboard" onclick="openMoodboard(this, '123')">
+                    <div class="moodboard_icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="3" rx="1"></rect><rect width="7" height="7" x="14" y="14" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect></svg></div>
+                    <div class="moodboard_name" title="Board Name">Board Name</div>
+                    <div class="tooltip">Board Name</div>
+                </a>-->
+                
+                <a href="#" class="add_moodboard" onclick="addBoard()">
+                    <div class="tooltip_icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg><span>Add board</span>
+                    </div>
+                    <div class="tooltip">Add moodboard</div>
+                </a>
+            </div>
+
+            <div class="nav_footer">
+                v0.7.2
+            </div>
+
+        </nav>
+
+        <main>
+            <div id="board_header">
+                <div class="icon">V</div>
+                <div class="name"><input role="textbox" id="board_name_input" autocomplete="off" disabled readonly></div>
+                <button class="button edit_board" onclick="beginEditCurrentBoard()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>Edit</button>
+                <button class="button delete_board" onclick="openDeleteBoardDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>Delete</button>
+                <button class="button add_image" onclick="openAddImageDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-plus"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>Add image</button>
+                <button class="button save_edit" onclick="endEditCurrentBoard(true)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>Save</button>
+                <button class="button cancel_edit" onclick="endEditCurrentBoard(false)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Cancel</button>
+            </div>
+
+            <div id="moodboard_content">
+                <div id="moodboard_content_inner_wrapper">
+                    <!--<div class="moodboard_column"></div>-->
+                </div>
+            </div>
+        </main>
+
+
+        <div id="backdrop"></div>
+
+        <div id="delete_board_confirm_dialog" class="dialog">
+            <b>Are you sure?</b>
+            <p>Do you really want to delete the board '<span class="board_name_placeholder"></span>'? This cannot be undone.</p>
+
+            <div class="dialog_buttons">
+                <button class="button confirm" onclick="deleteCurrentBoard()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>Delete</button>
+                <button class="button cancel dialog_focus" onclick="closeDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Cancel</button>
+            </div>
+        </div>
+
+        <div id="delete_image_confirm_dialog" class="dialog">
+            <b>Are you sure?</b>
+            <p>Do you really want to delete the image? This cannot be undone.</p>
+
+            <div class="dialog_buttons">
+                <button class="button confirm" onclick="deleteImage()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>Delete</button>
+                <button class="button cancel dialog_focus" onclick="closeDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>Cancel</button>
+            </div>
+        </div>
+
+        <div id="add_image_dialog" class="dialog">
+            <b>Add an image</b>
+            <p>
+                <span>URL</span>
+                <input id="img_url_input" class="input">
+            </p>
+
+            <span class="error_message"></span>
+
+            <div class="dialog_buttons">
+                <button class="button confirm dialog_focus" onclick="addNewImageToBoard()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-icon lucide-check"><path d="M20 6 9 17l-5-5"/></svg>Confirm</button>
+            </div>
+
+            <button title="Close" class="dialog_close_btn" onclick="closeDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        </div>
+
+        <div id="show_image_dialog" onclick="closeDialog()">
+            <img src="">
+
+            <button title="Close" class="dialog_close_btn show_image_dialog_close_btn" onclick="closeDialog()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+        </div>
+
+    </body>
+</html>
