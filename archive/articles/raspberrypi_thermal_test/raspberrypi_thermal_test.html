@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>Raspberry Pi aluminum case thermal test</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+
+		<!-- chart.js -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4/dist/chart.umd.min.js" defer></script>
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Home Lab</span>
+				<h1>Raspberry Pi aluminum case thermal test</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 05.06.2025
+					</div>
+                    <div id="tags">
+                        <tag>Raspberry Pi</tag><tag>Bash</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+				<h2>Introduction</h2>
+
+				<p>
+				In this article I will compare the heat development of a Raspberry Pi 3 Model B under stress with and without a case.
+                I bought the <a href="https://joy-it.net/en/products/RB-ALUcase+07" target="_blank" rel="noopener noreferrer">Joy-IT armor case "block"</a> for my Raspberry Pi 3 Model B and did some teamperature tests
+				to see if the case manages to passively cool the Raspberry Pi.
+				</p>
+					
+				<h2>Assembly</h2>
+
+				<p>
+				Before assembling everything, I ensured that the plastic protective film was removed from the included thermal pads.
+				Additionally I made sure that the pads had solid contact with the aluminum case, otherwise they can't transfer the heat from the chip to the case.
+				For the CPU I had to use a combination of one large, thin pad and a slightly smaller but thicker one to ensure the case made direct contact with the pads.
+				The kit came with six thermal pads, of which I used four: one for the RAM, one for the USB/Ethernet controller, and two for the CPU.
+				</p>
+
+				<h2>Testing methodology</h2>
+
+				I used the stress package for stress testing. The bash script that I used for stress testing and logging can be seen down below.
+				It will stress test the CPU for 15 minutes and log time, temperature, CPU frequency and whether the CPU thorttled or not every two seconds for a total of 21 minutes.
+
+				<code class="bash">#!/bin/bash
+
+# stress test using the stress package and logging cpu temp and frequency
+
+# Variables.
+test_run=1
+test_results_file="${HOME}/scripts/stress_log_$test_run.csv"
+stress_length="900s"
+
+printf "Log file: $test_results_file\n"
+
+# Start logging temperature data in the background.
+while /bin/true; do
+  line=$(date +"%H:%M:%S" | tr '\n' '\t')
+
+  # For Raspberry Pi.
+  line+=$(vcgencmd measure_temp | tr -d "temp=" | tr -d "'C" | tr '\n' '\t')
+  line+=$(vcgencmd get_throttled | tr -d "throttled=" | tr '\n' '\t')
+  line+=$(vcgencmd measure_clock arm | sed 's/^.*=//')
+
+  echo $line
+  echo $line >> $test_results_file
+  sleep 2
+done &
+
+# Store the logging pid.
+PROC_ID=$!
+
+# Stop the logging loop if script is interrupted or when it ends.
+trap "kill $PROC_ID" EXIT
+
+# After 1 minute, run stress.
+printf "Waiting 1 minute for stable idle temperature...\n"
+printf "Time      °C   Status  CPU Clock\n"
+sleep 60
+printf "Beginning $stress_length stress test...\n"
+stress -c 4 -t $stress_length
+
+# Keep logging for 5 more minutes.
+printf "Waiting 5 minutes to return to idle temperature...\n"
+sleep 300
+
+printf "Test complete.\n"</code>
+
+				
+
+				<h2>Results</h2>
+
+				<p>
+				I did 4 tests, 2 without and 2 with the case.
+				I was suprised by the results. With the case the CPU stayed much cooler during the 15 minute stress test.
+				</p>
+
+				<p>
+				Without the case the CPU quickly reached its thermal throttle point of 80°C after just 2 minutes.
+				For the first test with the case, the Raspberry Pi was placed on marble and the second test was done on a wodden desk with worse thermal conductivity.
+				In both tests the case fully prevented thermal throttling of the CPU during the 15 minute stress test.
+				</p>
+				<p>
+					The ambient temperature for the two tests without the case was around 23.5 °C and for the tests with the case it was roughly 22 °C.
+				</p>
+
+				<h5 class="figure_title">CPU Temperatures (°C)</h5>
+				<canvas id="temp_chart_canvas"></canvas>
+
+				<h5 class="figure_title">CPU Frequency (MHz)</h5>
+				<canvas id="freq_chart_canvas"></canvas>
+
+			</main>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<style>
+
+			#temp_chart_canvas, #freq_chart_canvas {
+				margin-bottom: 48px;
+				max-height: 400px;
+			}
+			.figure_title {
+				text-align: center;
+				margin: 2px 0 4px 0;
+			}
+
+		</style>
+
+		<script src="../../res/js/articles.js"></script>
+		<script src="temp_chart_script.js" defer></script>
+	</body>
+</html>
