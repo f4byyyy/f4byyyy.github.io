@@ -29,7 +29,7 @@
 				<div id="article_info">
 					<div class="info_item">
 						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
-						Published: 26.09.2022 <!-- updated 10.03.2023 -->
+						Published: 26.09.2022, last edit: 19.03.2026 <!-- updated 10.03.2023, 19.03.2026 -->
 					</div>
                     <div id="tags">
                         <tag>Bash</tag>
@@ -48,11 +48,9 @@
 				<p><h2>Branches:</h2></p>
 				<p><code class="inline plaintext">git branch</code> - lists all local branches (you are in the one marked with *)</p>
 				<p><code class="inline plaintext">git branch -a</code> - lists all local and remote branches (you are in the one marked with *)</p>
-				<p><code class="inline plaintext">git checkout [branch-name]</code> - Switch to that branch (files are updated to match the selected branch)</p>
-				<p><code class="inline plaintext">git checkout -b [new-branch-name]</code> - create and checkout to a new branch</p>
-				<br>
+				<p><code class="inline plaintext">git switch [branch-name]</code> (or <code class="inline plaintext">git checkout [branch-name]</code>) - switch to that branch (files are updated to match the selected branch)</p>
+				<p><code class="inline plaintext">git switch -c [new-branch-name]</code> (or <code class="inline plaintext">git checkout -b [new-branch-name]</code>) - create and switch to a new branch</p>
 				<p><code class="inline plaintext">git branch -d [branch-name]</code> - delete branch locally</p>
-				<br>
 				<p><code class="inline plaintext">git merge [branch-name]</code> - merges the given branch into your current branch</p>
 
 				<h2>Committing changes:</h2>
@@ -68,6 +66,7 @@
 
 				<h2>Other:</h2>
 				<p><code class="inline plaintext">git status</code> - shows which changes are staged and which are not</p>
+				<p><code class="inline plaintext">git restore [file-name]</code> - reset the unstaged file to the last commit</p>
 
 				<img src="git_diagram.svg" class="diagram">
 
