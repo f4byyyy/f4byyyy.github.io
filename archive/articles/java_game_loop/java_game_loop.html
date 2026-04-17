@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>Game Loop in Java</title>
+
+		<!-- highlight.js -->
+		<link rel="stylesheet" type="text/css" href="../../res/highlightjs/styles/github.min.css" id="code-stylesheet">
+		<script src="../../res/highlightjs/highlight.min.js"></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Game Development</span>
+				<h1>Game Loop in Java</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 17.08.2021
+					</div>
+                    <div id="tags">
+                        <tag>Java</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				
+                <p>Our game loop mainly has two tasks: <b>updating</b> the game (e.g. changing position, health, ...) and then <b>rendering</b> those changes over and over again.
+				To achieve this there are different solutions with varying advantages and disadvantages:</p>
+
+                <h2>Game Loop with fixed update and render</h2>
+
+                <p>The variable <code class="inline nohighlight">deltaTime</code> defines the time between the previous and the current frame. In this example <code class="inline nohighlight">deltaTime</code> is a fixed value.
+                This has the advantage that we don't have to worry about very extreme <code class="inline nohighlight">deltaTime</code> values like 2.0s or 0.00001s that would break our physics simulation.
+                When the frame rate drops, the loop will try to call the <code class="inline nohighlight">update()</code> method multiple times before another <code class="inline nohighlight">render()</code> call to keep the game from slowing down. This means that
+                even though our game may not be rendering at 60 fps, the <code class="inline nohighlight">update()</code> method will still be called 60 times a second. This, however, also has its limitations. For example, when the <code class="inline nohighlight">update()</code>
+                method should be executed 60 times per second, but every call takes longer than 1/60th of a second, our second while loop will simply go on forever. To prevent this we need the <code class="inline nohighlight">maxCatchUpTime</code> variable which indirectly defines the maximum amount of <code class="inline nohighlight">update()</code>
+                calls before the game will eventually begin to slow down because the update method cannot be called often enough per second.
+                </p>
+                <p>
+                For measuring the elapsed time between the frames (<code class="inline nohighlight">passedTime</code>), the call <code class="inline nohighlight">System.nanoTime()</code> is used to get maximum precision.
+                </p>
+				
+				<code class="java">boolean render = false;
+			
+double deltaTime = 1.0 / 60.0; // = 60fps
+double maxCatchUpTime = 0.15;
+
+double firstTime = 0;
+double lastTime = System.nanoTime() / 1000000000.0;
+double passedTime = 0;
+double unprocessedTime = 0;
+				
+while(run) {
+	
+	render = false;
+	firstTime = System.nanoTime() / 1000000000.0;
+	passedTime = firstTime - lastTime;
+	lastTime = firstTime;
+	
+	if(unprocessedTime &lt; maxCatchUpTime) {
+		unprocessedTime += passedTime;
+	}
+	
+	while(unprocessedTime &gt;= deltaTime) {
+		
+		unprocessedTime -= deltaTime;
+		render = true;
+		
+		update();
+	
+	}
+	
+	if(render) {
+		render();
+	} else {
+		Thread.sleep(1);
+	}
+	
+}</code>
+
+                <p>
+                If we want to be able to change our frame rate, we have to make our physics simulation depend on it because otherwise our game would run twice as fast at 60fps as at 30fps.
+                To achieve this, whe have to use our <code class="inline nohighlight">deltaTime</code> value in our physics calculations.
+                To simulate movement (where the velocity changes) the Verlet Integration can be used:
+                </p>
+
+<code class="java">position.x = position.x + (0.5 * (newVelocityX + velocityX) * deltaTime);
+position.y = position.y + (0.5 * (newVelocityY + velocityY) * deltaTime);
+</code>
+
+                <p>
+                Another solution would be to keep our <code class="inline nohighlight">update()</code> method at a fixed rate and only change the rate of the <code class="inline nohighlight">render()</code> calls.
+                </p>
+
+                <h2>Game Loop with fixed update and rendering as fast as possible</h2>
+
+                <p>
+                Here the <code class="inline nohighlight">update()</code> method is called at a fixed rate per second like in our first solution, but the <code class="inline nohighlight">render()</code> method is called as often as possible.
+                This can result in a slight stuttering of the movement because the amount of <code class="inline nohighlight">update()</code> calls in between two frames can vary. This happens for example when the <code class="inline nohighlight">update()</code> method is called 60 times per second and 
+                the rendering happens 70 times per second.</p>
+
+                <img class="graphic" src="images/update-render.png">
+
+                <p>
+                To solve this we can perfrom an interpolation between two physics steps when rendering. To do this we can use the <code class="inline nohighlight">alpha</code> value
+                which shows us how far we have progressed between two physics updates.
+                </p>
+			
+<code class="java">double deltaTime = 1.0 / 60.0; // = 60fps
+double maxCatchUpTime = 0.2;
+
+double firstTime = 0;
+double lastTime = System.nanoTime() / 1000000000.0;
+double passedTime = 0;
+double unprocessedTime = 0;
+				
+while(run) {
+	
+	firstTime = System.nanoTime() / 1000000000.0;
+	passedTime = firstTime - lastTime;
+	lastTime = firstTime;
+	
+	if(unprocessedTime &lt; maxCatchUpTime) {
+		unprocessedTime += passedTime;
+	}
+	
+	while(unprocessedTime &gt;= deltaTime) {
+		
+		unprocessedTime -= deltaTime;
+		
+		update();
+	
+	}
+	
+	double alpha = unprocessedTime / deltaTime;
+	
+	render(alpha);
+	
+}</code>
+
+                <h2>Measuring FPS</h2>
+                To measure the amount of frames in the past second, we can modify the code like so:
+
+<!-- note: the if(frameTime >= 1.0) statement should be placed in the while loop (like here) for the bast accuracy, I think -->
+<code class="java">double frameTime = 0.0;
+int frames = 0;
+int currentFPS = 0; //frames in the last second
+
+while(run) {
+
+	...
+
+	frameTime += passedTime;
+	
+	while(unprocessedTime >= deltaTime) {
+
+		...
+
+		//if on second has passed: update currentFPS 
+		if(frameTime >= 1.0) {
+			currentFPS = frames;
+			frameTime = 0;
+			frames = 0;
+		}
+	}
+
+	if(render) {
+		render();
+		frames++;
+	}
+
+}
+</code>
+
+                <h2>Sources</h2>
+                <table id="sources_table">
+                    <tr id="source1">
+                        <td>[1]<br></td>
+                        <td><a href="https://gafferongames.com/post/fix_your_timestep/">Gaffer On Games - Fix Your Timestep!</a></td>
+                    </tr>
+                </table>
+
+			</main>
+
+            <style>
+                .graphic {
+                    display: block;
+                    margin: 0 auto 12px auto;
+                    border-radius: 15px;
+                    border: 1px solid var(--border-color);
+                    max-width: 100%;
+                    max-height: 170px;
+                    height: auto;
+                }
+
+                .dark-theme .graphic {
+                    opacity: 0.85;
+                }
+            </style>
+
+			<footer>
+
+				
+
+			</footer>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+	</body>
+</html>

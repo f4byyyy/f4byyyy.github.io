@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!--<link rel="shortcut icon" type="image/x-icon" href="#">-->
+
+		<title>A Technical Guide to Photography</title>
+
+        <!-- KaTeX -->
+		<link rel="stylesheet" href="../../res/katex/katex.min.css">
+		<script defer src="../../res/katex/katex.min.js"></script>
+		<script defer src="../../res/katex/contrib/auto-render.min.js" onload="renderMathInElement(document.body, {
+			delimiters: [
+				{left: '$$', right: '$$', display: true},
+				{left: '$', right: '$', display: false}],
+			throwOnError : false
+		  });">
+		</script>
+
+        <script src="../../res/js/table_of_contents.js" async></script>
+
+		<!-- style -->
+		<link rel="stylesheet" type="text/css" href="../../res/style/article_base.css">
+	</head>
+	<body>
+
+		<div class="content">
+
+			<header>
+				<div id="hero_image">
+					<!-- TODO: zu picture tag machen für scaling? -->
+					<img src="../../res/images/placeholder.jpg" alt="">
+				</div>
+
+				<span id="topic">Photography</span>
+				<h1>A Technical Guide to Photography</h1>
+				<div id="article_info">
+					<div class="info_item">
+						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
+						Published: 20.03.2026
+					</div>
+                    <div id="tags">
+                        <tag>Guide</tag>
+                    </div>
+				</div>
+			</header>
+
+			<main>
+				                
+                This article/guide is for you if you are already familiar with the basics of photography and want get a deeper understanding of the workings 
+                of your camera and the differences between cameras with e.g. different sensor sizes.
+
+                <div id="table_of_contents"></div>
+
+                <h2>Equivalence</h2>
+                <p>This section might help you to understand the real difference between differently sized camera sensors.</p>
+                
+                <h4>Crop Factor</h4>
+                <p>First we have to understand what crop factor (CF) means. The crop factor of a sensor is the ratio of the diagonal of a full frame sensor to its diagonal:</p>
+                <p>$ \text{CF} = \displaystyle\frac{\text{diag}_{FF}}{\text{diag}_{Sensor}} $</p>
+
+                <p>Of course we can also use a different sensor size than full frame as the base size for the crop factor, but using the full frame diagonal is most common.</p>
+
+                <blockquote>
+                    Note that if the sensor in question has the same aspect ratio as the full frame sensor (which is 3:2), then the crop factor
+                    is simply the number you multiply the sensor's width and height by to get the full frame sensor's width and height.
+                </blockquote>
+                <!-- TOOD: note that CF can be defined with a different sensor size as full frame as a reference to calculate equivalence of two sensors that are both not FF -->
+
+                <p>
+                    <b>Example:</b> Let's take a Micro Four Thirds sensor. Its dimensions are 17.3 mm &times; 13 mm whereas a full frame sensor measures 36 mm &times; 24 mm.
+                    The diagonal of the MFT sensor is 21.64 mm and the diagonal of a FF sensor measures 43.267 mm. So the resulting crop factor is 2.
+                </p>
+                
+                
+                
+                <h4>Calculating Equivalent Values</h4>
+                <p>Now with that sorted out we can take a look at the formulas for calculating the full frame equivalent of different variables:</p>
+
+                <div style="margin-left: 12px">
+                    <p>$ \text{Equivalent Focal Length} = \text{(Focal Length)} \times \text{(Crop Factor)} $</p>
+                    <p>$ \text{Equivalent Aperture} = \text{(F-Number)} \times \text{(Crop Factor)} $</p>
+                    <p>$ \text{Equivalent ISO} = \text{(ISO)} \times \text{(Crop Factor)}^2 $</p>
+                </div>
+                
+                <p>
+                Now what does equivalence mean? If you set up two cameras with differently sized sensors with equivalent settings you will essentially get
+                the same picture. Things like brightness, depth of field and field of view are the same. And even the noise level and dynamic range should be (roughly) the same,
+                at least if the two sensors have comparable performance (i.e. they were produced in the same era). The only differences of the two pictures might lie in the color
+                science of the cameras or some properties of the different lenses like chromatic aberration. Obviously you also have to position both camreas identically
+                to caputre the same image.
+                </p>
+
+                <p>
+                    <b>Example 1:</b> Let's take a camera with a full frame sensor and one with an APS-C sensor. The crop factor of a typical APS-C sensor
+                    is 43.267 / 28.4 = 1.523 (Some APS-C sensors have a slightly different size: e.g. Canon's APS-C sensors have a crop factor of 1.6).
+                    Let's say on our APS-C camera we have a 50 mm lens at f/2.8 and set ISO to 400 and the shutter speed to 1/125. Now the equivalent variables
+                    on our full frame camera would be: 
+                    <ul>
+                        <li>Focal length: 50 mm &times; 1.523 = 76.15 mm</li>
+                        <li>Aperture: 2.8 &times; 1.523 = f/4.264</li>
+                        <li>ISO: 400 &times; 1.523&#178; = 927.81</li>
+                        <li>Shutter speed: 1/125</li>
+                    </ul>
+                </p>
+                
+                <p>
+                    <b>Example 2:</b> In this example I took two pictures with two very different cameras but equivalent settings. The left
+                    image was taken with a Canon PowerShot G9 X II (1&Prime; sensor) and the right image was taken with a Nikon Z5II (full frame sensor).
+                    I converted the raw images to jpeg without any editing like noise reduction applied. Since the sensor of the Nikon Z5II has 24 MP vs the 20 MP
+                    on the Canon, I downscaled the Nikon image to 20 MP to get the same field of view in the 300 &times; 300 crop you can see below.
+                    Also you can see that the image of the Nikon is a bit brighter which makes sense since i chose ISO and aperture to be a bit bigger than the exact equivalent values.
+                    <!-- TODO: Example 2 with images from me where i test this. -->
+                </p>
+                <div class="fig_img_comparision">
+                    <div class="img_wrapper"><img src="images/Canon-1inch.jpg"></div>
+                    <div class="img_wrapper"><img src="images/Nikon-FF.jpg"></div>
+                    <div class="comp_img_caption">Canon (1&Prime; sensor)</div>
+                    <div class="comp_img_caption">Nikon (full frame sensor)</div>
+                </div>
+
+                <div class="zoom_settings">
+                    <div onclick="toggleMagnification(this, 1)" style="background-color: #363680;">100%</div>
+                    <div onclick="toggleMagnification(this, 3)">300%</div>
+                    <div onclick="toggleMagnification(this, 4)">400%</div>
+                </div>
+
+                <p>Here are the settings used on both cameras and the exact equivalent settings on the full frame camera:</p>
+                <table style="display: table; width: auto;"> <!-- TODO: ins css übernehmen -->
+                    <thead style="text-align: left;">
+                        <tr>
+                            <th></th>
+                            <th>1&Prime; sensor</th>
+                            <th>FF sensor used</th>
+                            <th>FF sensor exact</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>Focal length</th>
+                            <td>30.6 mm</td>
+                            <td>83 mm</td>
+                            <td>83.45 mm</td>
+                        </tr>
+                        <tr>
+                            <th>Aperture</th>
+                            <td>f/6.3</td>
+                            <td>f/16</td>
+                            <td>f/17.18</td>
+                        </tr>
+                        <tr>
+                            <th>ISO</th>
+                            <td>125</td>
+                            <td>1000</td>
+                            <td>929.75</td>
+                        </tr>
+                        <tr>
+                            <th>Shutter speed</th>
+                            <td>1/1000</td>
+                            <td>1/1000</td>
+                            <td>1/1000</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>According to <a href="https://www.photonstophotos.net/Charts/PDR.htm#Canon%20PowerShot%20G7%20X%20Mark%20II,Nikon%20Z%205II">photonstophotos.net</a> the Nikon Z5II
+                    and the Canon PowerShot G7 X Mark II (which should have a similar sensor to the G9 X Mark II) have roughly the same dynmaic range at ISO 1000 and 125.</p>
+
+                <p>
+                    <b>What happens if you only change some of the variables to be equivalent?</b> <!-- TODO: maybe "summary" as title better?-->
+                    <ul>
+                        <li>An equivalent focal length gives the same field of view</li>
+                        <li>An equivalent aperture gives the same depth of field (given an equivalent focal length)</li>
+                        <li>An equivalent ISO gives (roughly) the same noise level and dynamic range if the sensors have comparable performance. It also gives the same
+                            brightness if the aperture is equivalent and the shutter speed matches
+                        </li>
+                    </ul>
+                    
+                </p>
+
+                <h2>Full Frame vs. APS-C Sensor</h2>
+                <p>As detailed in the section about equivalence an APS-C sensor only really has two (small) downsides compared to a full frame sensor: First of all the dynamic range and noise at base ISO
+                    is slightly worse. Apart from that you can use a faster lens on an APS-C camera to get the same results as with a full frame camera, as long as a
+                    faster lens is available. This shows the second downside: Since you probably won't find a faster lens than f/0.95 for a regular APS-C camera, a full frame camera will also have an 
+                    advantage if you pair it with a lens faster than f/1.425 (= 0.95 &times; 1.5) since there will be no equivalent lens available for APS-C.
+                </p>
+                
+                <p>However, there is more to consider than the image you will get: Price and weight are also important factors when choosing a camera and lens. In theory
+                    an APS-C lens can be a bit smaller than an equivalent full frame lens. This could make an equivalent APS-C lens
+                    slightly cheaper and lighter but in practise this is not always the case since the quality of the lens also plays a big role here. Also an APS-C camera
+                    might be a bit cheaper than a comparable full frame model.
+                </p>
+
+                <p>
+                    <!--
+                    
+                    goal: show that looking only a the sensor is not enough
+                    - also consider the lens you are using!
+                    - statements like APS-C sensor has more depth of field is only true if you keep the aperture the same etc.
+                    
+                    -->
+                </p>
+
+                <h2>Depth of Field</h2>
+                
+                <p>Depth of field is the length of the area that is acceptably sharp. It is affected by three factors:</p>
+                
+                <p>
+                <ul>
+                    <li>Aperture: wider aperture gives shallower depth of field</li>
+                    <li>Distance to subject: focusing closer gives shallower depth of field</li>
+                    <li>Focal length: A longer focal lenght gives shallower depth of field</li>
+                </ul>
+                </p>
+
+                <p>If you change focal length and adjust your position so that the subject stays the same size, depth of field will actually stay
+                    the same, but a longer focal length will still give you more background blur since the background is enlarged compared to a shorter focal length.
+                    Technically defining what "acceptably sharp" means also has an effect on depth of field, but we will ignore that here. The website
+                    <a href="https://dofsimulator.net"  target="_blank">dofsimulator.net</a> is great if you want to see the effects of changing the different factors.
+                </p>
+
+
+                <h2>Sources</h2>
+                <table id="sources_table">
+                    <tr id="source1">
+                        <td>[1]</td>
+                        <td><a href="https://photographylife.com/equivalence-also-includes-aperture-and-iso" target="_blank" rel="noopener noreferrer">photographylife.com - Equivalence Also Includes Aperture and ISO</a></td>
+                    </tr>
+					<tr id="source2">
+						<td>[2]</td>
+						<td><a href="https://photo.stackexchange.com/questions/9624/what-exactly-determines-depth-of-field" target="_blank" rel="noopener noreferrer">Photography Stack Exchange - What exactly determines depth of field?</a></td>
+					</tr>
+                </table>
+
+			</main>
+
+			<footer style="height: 300px;">
+
+				
+
+			</footer>
+
+            <style>
+                ul {
+                    margin-right: 1.5em;
+                }
+                
+                .fig_img_comparision {
+                    display: grid;
+                    column-gap: 3px;
+                    margin-bottom: 15px;
+                    grid-template-columns: 300px 300px;
+                    justify-content: center;
+                    justify-items: center;
+                    text-align: initial;
+                }
+
+                .fig_img_comparision .comp_img_caption {
+                    padding: 0 5px;
+                    margin-top: 3px;
+                }
+
+                .img_wrapper {
+                    overflow: hidden;
+                    width: 300px;
+                    height: 300px;
+                    image-rendering: crisp-edges;
+                }
+
+                .zoom_settings {
+                    margin: 0 auto 24px auto;
+                    display: flex;
+                    column-gap: 10px;
+                    border: 1px solid var(--border-color);
+                    border-radius: 18px;
+                    padding: 5px 5px;
+                    width: fit-content;
+                }
+
+                .zoom_settings div {
+                    cursor: pointer;
+                    border-radius: 13px;
+                    padding: 0 7px;
+                }
+
+                @media only screen and (max-width: 655px) {
+
+                .fig_img_comparision {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                .img_wrapper {
+                    width: 100%;
+                    height: 100%;
+                }
+
+
+                .img_wrapper img {
+                    width: 100%;
+                    height: auto;
+                }
+
+                }
+            </style>
+
+		</div>
+
+		<script src="../../res/js/articles.js"></script>
+        <script src="scripts.js"></script>
+	</body>
+</html>
