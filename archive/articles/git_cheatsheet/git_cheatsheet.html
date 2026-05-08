@@ -29,7 +29,7 @@
 				<div id="article_info">
 					<div class="info_item">
 						<svg class="date_icon" aria-hidden="true" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><title>published / last update</title><path d="M 12 192 h 488 c 6.6 0 12 5.4 12 12 v 260 c 0 26.5 -21.5 48 -48 48 H 48 c -26.5 0 -48 -21.5 -48 -48 V 204 c 0 -6.6 5.4 -12 12 -12 z m 500 -44 v -36 c 0 -26.5 -21.5 -48 -48 -48 h -48 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 160 V 12 c 0 -6.6 -5.4 -12 -12 -12 h -40 c -6.6 0 -12 5.4 -12 12 v 52 H 48 C 21.5 64 0 85.5 0 112 v 36 c 0 6.6 5.4 12 12 12 h 488 c 6.6 0 12 -5.4 12 -12 z"></path></svg>
-						Published: 26.09.2022, last edit: 19.03.2026 <!-- updated 10.03.2023, 19.03.2026 -->
+						Published: 26.09.2022, last edit: 08.05.2026 <!-- updated 10.03.2023, 19.03.2026,  08.05.2026 -->
 					</div>
                     <div id="tags">
                         <tag>Bash</tag>
@@ -68,6 +68,14 @@
 				<p><code class="inline plaintext">git status</code> - shows which changes are staged and which are not</p>
 				<p><code class="inline plaintext">git restore [file-name]</code> - reset the unstaged file to the last commit</p>
 
+				<p><code class="inline plaintext">git stash</code> - saves local changes on the stash and removes them from the workspace</p>
+				<p><code class="inline plaintext">git stash pop</code> - applies the changes of the top entry of the stash and removes the entry from the stash</p>
+
+				<p><code class="inline plaintext">git commit --amend --no-edit</code> - replaces the last commit by a new one that includes newly added files (e.g. in case you forgot
+				to add a file). It is best to not use this when the previous commit is already pushed. If you still have to do this you should
+				push the new commit (that replaces the old one) using <code class="inline plaintext">git push --force-with-lease</code> which will only work if there are no
+				new commits on the remote meaning you won't replace someone elses work.</p>
+
 				<img src="git_diagram.svg" class="diagram">
 
 				<div style="height: 32px"></div>
@@ -99,6 +107,9 @@
 						display: block;
 						margin: 24px auto 0 auto;
 						width: 60%;
+					}
+					code.inline {
+						margin-left: -7px;
 					}
 
 					@media only screen and (max-width: 500px) {
